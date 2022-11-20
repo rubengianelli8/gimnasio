@@ -3,32 +3,33 @@ module.exports = {
   purge: [
     "./src/pages/**/*.{js,ts,jsx,tsx}",
     "./src/components/**/*.{js,ts,jsx,tsx}",
+    "./src/containers/**/*.{js,ts,jsx,tsx}",
   ],
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      fontFamily: {
+        worksans: ["Work Sans", "sans-serif"],
+      },
       fontSize: {
-        14: "14px",
-        16: "16px",
+        sm: "16px",
+        md: "25px",
+        lg: "30px",
       },
-      width: {
-        250: "250px",
+      zIndex: {
+        60: "60",
+        100: "100",
       },
-      maxHeight: {
-        300: "300px",
+      colors: {
+        primary: "#06aac7",
+        grayCustom: "#b4b4b4",
+        error: "#a22718",
       },
-      maxWidth: {
-        400: "400px",
+      height: {
+        newScreen: "calc(100vh - 200px)",
       },
       boxShadow: {
         box: "0 3px 6px 0 rgba(0, 0, 0, 0.16)",
-      },
-      margin: { 255: "255px" },
-      colors: {
-        primary: "#0E185F",
-        secondary: "#2FA4FF",
-        tertiary: "#00FFDD",
-        quaternary: "#E8FFC2",
       },
     },
   },
