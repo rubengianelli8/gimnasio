@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { auth } from "@/models/auth";
+import { Auth } from "@/models/auth";
 
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
@@ -15,7 +15,7 @@ export default NextAuth({
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
-        const user = await auth({
+        const user = await Auth.validateAuth({
           email: credentials.email,
           password: credentials.password,
         });
