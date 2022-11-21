@@ -26,7 +26,7 @@ module.exports = {
         error: "#a22718",
       },
       height: {
-        newScreen: "calc(100vh - 200px)",
+        newScreen: "calc(100vh - 80px)",
       },
       boxShadow: {
         box: "0 3px 6px 0 rgba(0, 0, 0, 0.16)",
