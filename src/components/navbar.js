@@ -4,7 +4,7 @@ import { IoIosCloseCircle } from "react-icons/io";
 const Navbar = () => {
   const [showNavbar, setShowNavbar] = useState(true);
   return (
-    <nav className="h-[80px] w-screen px-[20px] bg-black text-white flex items-center">
+    <nav className="h-[80px] max-w-screen px-[20px] bg-black text-white flex items-center">
       <ul className="hidden md:flex h-full gap-x-4 items-center w-full justify-center text-[20px] font-medium ">
         <li className="hover:text-primary hover:underline cursor-pointer">
           Inicio

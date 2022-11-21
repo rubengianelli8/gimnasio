@@ -21,7 +21,7 @@ module.exports = {
         100: "100",
       },
       colors: {
-        primary: "#06aac7",
+        primary: "#2c7dce",
         grayCustom: "#b4b4b4",
         error: "#a22718",
       },

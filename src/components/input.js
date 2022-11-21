@@ -13,6 +13,7 @@ const Input = ({
   clickableAction,
   toolTipLabel,
   disabled = false,
+  error,
   ...rest
 }) => {
   return (
@@ -20,8 +21,8 @@ const Input = ({
       <div
         className={
           error
-            ? `flex flex-col w-full relative md:mt-4 xl:mt-0`
-            : `flex flex-col w-full`
+            ? `flex flex-col w-full relative md:mt-4 xl:mt-0 `
+            : `flex flex-col w-full relative`
         }
       >
         {label && (
@@ -30,11 +31,7 @@ const Input = ({
             className="relative w-full focus:border-red-500 z-auto"
           >
             <span
-              className={`text-sm md:text-[19px] ${
-                border
-                  ? "text-primary font-bold"
-                  : "text-grayCustom font-medium"
-              }  mb-[18px]`}
+              className={`text-sm md:text-[19px] text-primary font-bold  mb-[18px]`}
             >
               {label}
             </span>
@@ -43,17 +40,16 @@ const Input = ({
                 <TooltipComponent text={toolTipLabel} />
               </span>
             ) : null}
-
-            {icon && (
-              <span
-                className="absolute right-4 top-4 text-lightBlue cursor-pointer"
-                onClick={clickableAction}
-              >
-                {type !== "password" && icon}
-                {type === "password" && secondIcon}
-              </span>
-            )}
           </Label.Root>
+        )}
+        {icon && (
+          <span
+            className="absolute right-4 top-16 text-primary cursor-pointer"
+            onClick={clickableAction}
+          >
+            {type !== "password" && icon}
+            {type === "password" && secondIcon}
+          </span>
         )}
 
         <input
