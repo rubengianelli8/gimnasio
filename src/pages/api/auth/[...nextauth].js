@@ -15,7 +15,7 @@ export default NextAuth({
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
-        const user = Auth.validateAuth({
+        const user = Auth.validateAuth(null, {
           email: credentials.email,
           password: credentials.password,
         });

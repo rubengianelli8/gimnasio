@@ -9,6 +9,7 @@ import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
 import { validationSchema } from "./validation-schema";
 import Input from "@/components/input";
 import Button from "@/components/button";
+import Error from "@/components/error";
 
 const Signin = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -34,7 +35,8 @@ const Signin = () => {
       callbackUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/app`,
     }).then((res) => {
       if (!res.ok) {
-        setError({ ok: res.ok, message: t("errorSignin") });
+        console.log("aca");
+        setError({ ok: res.ok, message: "Email o Contraseña incorrectos" });
         setLoading(false);
       } else Router.push(res.url);
     });
@@ -51,6 +53,7 @@ const Signin = () => {
         className="w-11/12 max-w-[400px] mt-[30px]"
         onSubmit={handleSubmit(onSubmit)}
       >
+        <Error message={error.message} />
         <Input
           type="text"
           name="email"

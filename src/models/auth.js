@@ -3,6 +3,7 @@ import { hashPassword } from "@/utils/functions";
 
 export const Auth = {
   async validateAuth(_parent, data, _context) {
+    console.log("entra", data.email);
     const user = await prisma.user.findUnique({
       where: {
         email: data.email,
@@ -19,6 +20,7 @@ export const Auth = {
         },
       },
     });
+    console.log(user);
     if (!user) return false;
     if (hashPassword(data.password) !== user.password) return false;
     return this.prepareUser(user);
