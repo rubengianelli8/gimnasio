@@ -1,5 +1,4 @@
 import * as Label from "@radix-ui/react-label";
-import { GoTriangleDown } from "react-icons/go";
 
 const Input = ({
   type,
@@ -44,7 +43,7 @@ const Input = ({
         )}
         {icon && (
           <span
-            className="absolute right-4 top-16 text-primary cursor-pointer"
+            className="absolute right-4 top-[52px] md:top-16 text-primary cursor-pointer"
             onClick={clickableAction}
           >
             {type !== "password" && icon}
@@ -70,9 +69,7 @@ const Input = ({
         />
 
         <div className="h-[30px]">
-          {error && !errorPopover ? (
-            <p className=" text-error text-sm">{error.message}</p>
-          ) : null}
+          {error && <p className=" text-error text-sm">{error.message}</p>}
         </div>
       </div>
     </>

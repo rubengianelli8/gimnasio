@@ -1,25 +1,56 @@
 import { useState } from "react";
+import Router from "next/router";
+import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
+
+import { validationSchema } from "./validation-schema";
 import Input from "@/components/input";
 import Button from "@/components/button";
 
 const Signin = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState({ ok: true, message: "" });
+
   const {
     handleSubmit,
     register,
-    formState: { errors },
-  } = useForm();
-  const [showPassword, setShowPassword] = useState(false);
+    formState: { errors, isValid },
+  } = useForm({
+    mode: "onChange",
+    reValidateMode: "onChange",
+    resolver: yupResolver(validationSchema()),
+  });
 
+  const onSubmit = (data) => {
+    setLoading(true);
+    signIn("credentials", {
+      email: data.email,
+      password: data.password,
+      redirect: false,
+      callbackUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/app`,
+    }).then((res) => {
+      if (!res.ok) {
+        setError({ ok: res.ok, message: t("errorSignin") });
+        setLoading(false);
+      } else Router.push(res.url);
+    });
+  };
   return (
-    <div className="flex flex-col items-center mt-[30px]">
-      <h2 className="text-[35px] font-bold  text-primary">Iniciar Sesión</h2>
-      <h3 className="text-[18px] font-medium text-primary ">
-        Bienvenido, por favor ingresa tus credenciales
+    <div className="flex flex-col items-center my-[50px]">
+      <h2 className="text-[35px] font-bold  text-primary text-center">
+        Iniciar Sesión
+      </h2>
+      <h3 className="text-[18px] font-medium text-primary text-center ">
+        Bienvenido, por favor ingresá tus credenciales
       </h3>
-      <form className="w-[400px] mt-[30px]">
+      <form
+        className="w-11/12 max-w-[400px] mt-[30px]"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <Input
           type="text"
           name="email"
@@ -39,12 +70,12 @@ const Signin = () => {
           secondIcon={<AiFillEyeInvisible size={20} />}
           clickableAction={() => setShowPassword(!showPassword)}
         />
-        <div className="text-[20px] mb-[20px]">
+        <div className="text-[20px]">
           <Button
             label="Ingresar"
             color="primary"
             type="submit"
-            disabled={true}
+            disabled={!isValid}
           />
         </div>
       </form>

@@ -11,7 +11,8 @@ model user {
   id           Int           @id @default(autoincrement())
   first_name   String
   last_name    String
-  email        String
+  email        String        @unique
+  password     String
   phone_number String
   role_x_user  role_x_user[]
 }
@@ -29,4 +30,6 @@ model role_x_user {
   roleId Int
   user   user @relation(fields: [userId], references: [id])
   role   role @relation(fields: [roleId], references: [id])
+
+  @@unique([userId, roleId])
 }
