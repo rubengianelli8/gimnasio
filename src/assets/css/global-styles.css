@@ -1,18 +1,3 @@
 body {
   font-family: "Work Sans", sans-serif;
 }
-
-@keyframes my-animation {
-  0% {
-    opacity: 0;
-  }
-  50% {
-    opacity: 0.5;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-.animation-mia {
-  animation: my-animation 0.5s linear;
-}
