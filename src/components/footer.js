@@ -5,7 +5,7 @@ import { BsFillHouseDoorFill, BsFillTelephoneFill } from "react-icons/bs";
 
 const Footer = () => {
   return (
-    <footer className="grid gap-y-[20px] md:gap-y-0 grid-cols-1 md:grid-cols-3 bg-black text-white  py-[30px] place-content-center text-[14px] mt-auto">
+    <footer className="grid gap-y-[20px] md:gap-y-0 grid-cols-1 md:grid-cols-3 bg-gray-900 text-white  py-[30px] place-content-center text-[14px] mt-auto">
       <div className="flex flex-col justify-center">
         <p className="mx-auto">Copyright &copy; 2022 por Rubén Gianelli</p>
         <div className="mt-3 flex justify-center gap-x-4">

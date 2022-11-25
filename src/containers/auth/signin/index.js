@@ -32,10 +32,9 @@ const Signin = () => {
       email: data.email,
       password: data.password,
       redirect: false,
-      callbackUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/app`,
+      callbackUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/dashboard`,
     }).then((res) => {
       if (!res.ok) {
-        console.log("aca");
         setError({ ok: res.ok, message: "Email o Contraseña incorrectos" });
         setLoading(false);
       } else Router.push(res.url);
