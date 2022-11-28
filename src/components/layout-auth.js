@@ -10,11 +10,11 @@ const items = [
   { label: "Estadisticas", link: "/dashboard/statistics" },
 ];
 
-const Layout = ({ children }) => {
+const Layout = ({ children, navigationItems }) => {
   return (
     <section className="min-h-screen flex flex-col max-w-screen relative">
       <Navbar items={items} />
-      <Navigation />
+      <Navigation items={navigationItems} />
       {children}
     </section>
   );
