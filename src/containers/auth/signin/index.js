@@ -10,6 +10,7 @@ import { validationSchema } from "./validation-schema";
 import Input from "@/components/input";
 import Button from "@/components/button";
 import Error from "@/components/error";
+import Loader from "@/components/loader";
 
 const Signin = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -42,47 +43,52 @@ const Signin = () => {
     });
   };
   return (
-    <div className="flex flex-col items-center my-[50px]">
-      <h2 className="text-[35px] font-bold  text-primary text-center">
-        Iniciar Sesión
-      </h2>
-      <h3 className="text-[18px] font-medium text-primary text-center ">
-        Bienvenido, por favor ingresá tus credenciales
-      </h3>
-      <form
-        className="w-11/12 max-w-[400px] mt-[30px]"
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <Error message={error.message} />
-        <Input
-          type="text"
-          name="email"
-          label="Email"
-          register={register}
-          placeholder="tudireccion@mail.com"
-          error={errors.email}
-        />
-        <Input
-          type={showPassword ? "text" : "password"}
-          name="password"
-          label="Contraseña"
-          register={register}
-          placeholder="************"
-          error={errors.password}
-          icon={<AiFillEye size={20} />}
-          secondIcon={<AiFillEyeInvisible size={20} />}
-          clickableAction={() => setShowPassword(!showPassword)}
-        />
-        <div className="text-[20px]">
-          <Button
-            label="Ingresar"
-            color="primary"
-            type="submit"
-            disabled={!isValid}
-          />
+    <>
+      {loading && <Loader />}
+      {!loading && (
+        <div className="flex flex-col items-center my-[50px]">
+          <h2 className="text-[35px] font-bold  text-primary text-center">
+            Iniciar Sesión
+          </h2>
+          <h3 className="text-[18px] font-medium text-primary text-center ">
+            Bienvenido, por favor ingresá tus credenciales
+          </h3>
+          <form
+            className="w-11/12 max-w-[400px] mt-[30px]"
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            <Error message={error.message} />
+            <Input
+              type="text"
+              name="email"
+              label="Email"
+              register={register}
+              placeholder="tudireccion@mail.com"
+              error={errors.email}
+            />
+            <Input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              label="Contraseña"
+              register={register}
+              placeholder="************"
+              error={errors.password}
+              icon={<AiFillEye size={20} />}
+              secondIcon={<AiFillEyeInvisible size={20} />}
+              clickableAction={() => setShowPassword(!showPassword)}
+            />
+            <div className="text-[20px]">
+              <Button
+                label="Ingresar"
+                color="primary"
+                type="submit"
+                disabled={!isValid}
+              />
+            </div>
+          </form>
         </div>
-      </form>
-    </div>
+      )}
+    </>
   );
 };
 
