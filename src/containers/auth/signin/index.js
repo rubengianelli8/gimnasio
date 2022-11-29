@@ -34,6 +34,7 @@ const Signin = () => {
       redirect: false,
       callbackUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/dashboard`,
     }).then((res) => {
+      console.log(res);
       if (!res.ok) {
         setError({ ok: res.ok, message: "Email o Contraseña incorrectos" });
         setLoading(false);

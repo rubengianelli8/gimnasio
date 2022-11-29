@@ -24,7 +24,8 @@ const Layout = ({ children }) => {
     <section className="min-h-screen flex flex-col max-w-screen relative">
       <Navbar items={items} />
       <Navigation items={navigationClient} />
-      {children}
+      <div className="h-[80px]"></div>
+      <div className="ml-[90px] mt-[20px]">{children}</div>
     </section>
   );
 };

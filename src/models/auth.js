@@ -44,8 +44,8 @@ export const Auth = {
       last_name: user.last_name,
       email: user.email,
       roles,
-      admin: user.admin.length > 0 ? admin[0].id : null,
-      client: user.client.length > 0 ? client[0].id : null,
+      admin: user.admin?.length > 0 ? user.admin[0].id : null,
+      client: user.client?.length > 0 ? user.client[0].id : null,
     };
   },
 };

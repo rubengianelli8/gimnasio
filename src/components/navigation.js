@@ -8,7 +8,7 @@ const Navigation = ({ items = [] }) => {
     <div
       className={`${
         show ? "w-[250px]" : "w-[80px]"
-      } bg-gray-900 text-primary fixed top-20 left-0 h-screen transition-all ease-in-out duration-500 `}
+      } bg-gray-900 text-primary fixed top-20 left-0 h-screen transition-all ease-in-out duration-500 z-100`}
     >
       <div
         onClick={() => setShow(!show)}

@@ -16,6 +16,7 @@
     "@graphql-tools/utils": "^8.5.3",
     "@hookform/resolvers": "^2.9.10",
     "@prisma/client": "^3.4.1",
+    "@radix-ui/react-dialog": "^1.0.2",
     "@radix-ui/react-label": "^2.0.0",
     "@radix-ui/react-toggle-group": "^0.1.5",
     "apollo-server-micro": "^3.5.0",

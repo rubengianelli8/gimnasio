@@ -20,7 +20,7 @@ const Input = ({
       <div
         className={
           error
-            ? `flex flex-col w-full relative md:mt-4 xl:mt-0 `
+            ? `flex flex-col w-full relative `
             : `flex flex-col w-full relative`
         }
       >
@@ -30,7 +30,7 @@ const Input = ({
             className="relative w-full focus:border-red-500 z-auto"
           >
             <span
-              className={`text-sm md:text-[19px] text-primary font-bold  mb-[18px]`}
+              className={`text-[14px] md:text-sm text-primary font-bold  mb-[18px]`}
             >
               {label}
             </span>
@@ -59,7 +59,7 @@ const Input = ({
           disabled={disabled}
           autoComplete="off"
           step="any"
-          className={`bg-[#f5f5f5] mt-[11px] py-[13px] px-[21px] text-sm rounded-[10px] text-primary md:text-18 md:font-regular md:py-[19px] md:pl-[26px] md:pr-[21px] w-full ${
+          className={`bg-[#f5f5f5] mt-[11px] py-[13px] px-[21px] text-[14px] rounded-[10px] text-primary md:text-sm md:font-regular md:py-[19px] md:pl-[26px] md:pr-[21px] w-full ${
             !error
               ? "border border-primary placeholder focus:border-2 focus:border-primary focus:outline-none"
               : "border border-error placeholder focus:border-2 focus:border-error focus:outline-none"
@@ -69,7 +69,11 @@ const Input = ({
         />
 
         <div className="h-[30px]">
-          {error && <p className=" text-error text-sm">{error.message}</p>}
+          {error && (
+            <p className=" text-error text-[14px] md:text-sm">
+              {error.message}
+            </p>
+          )}
         </div>
       </div>
     </>
