@@ -1,6 +1,8 @@
 import Navbar from "@/components/navbar";
 import Navigation from "@/components/navigation";
 
+import { AiOutlineUserAdd } from "react-icons/ai";
+
 const items = [
   { label: "Inicio", link: "/dashboard" },
   { label: "Clientes", link: "/dashboard/clients" },
@@ -10,11 +12,18 @@ const items = [
   { label: "Estadisticas", link: "/dashboard/statistics" },
 ];
 
-const Layout = ({ children, navigationItems }) => {
+const navigationClient = [
+  {
+    label: "Agregar cliente",
+    link: "/dashboard/clients/add",
+    icon: <AiOutlineUserAdd />,
+  },
+];
+const Layout = ({ children }) => {
   return (
     <section className="min-h-screen flex flex-col max-w-screen relative">
       <Navbar items={items} />
-      <Navigation items={navigationItems} />
+      <Navigation items={navigationClient} />
       {children}
     </section>
   );
