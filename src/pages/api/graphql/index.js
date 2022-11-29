@@ -1,4 +1,5 @@
 import { ApolloServer } from "apollo-server-micro";
+import { getSession } from "next-auth/react";
 
 import { resolvers } from "@/graphql/resolvers";
 import { schemas } from "@/graphql/schemas";
@@ -8,10 +9,23 @@ const apolloServer = new ApolloServer({
   typeDefs: schemas,
   resolvers: resolvers,
 
-  // context: async ({ req }) => {
-  //   if (req.headers.authorization !== process.env.SECRET_KEY)
-  //     throw new Error("Acceso no permitido.");
-  // },
+  context: async ({ req, res }) => {
+    const session = await getSession({ req });
+
+    const context = {
+      req,
+      res,
+      user: {},
+    };
+
+    const user = session ? session : null;
+
+    if (!user?.error) {
+      context.user = user;
+    }
+
+    return context;
+  },
 });
 
 const startServer = apolloServer.start();
