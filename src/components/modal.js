@@ -13,12 +13,12 @@ const Modal = ({
   title,
 }) => {
   return (
-    <Dialog.Root open={openModal} className="z-50 ">
+    <Dialog.Root open={openModal} className="z-101">
       <Dialog.Portal>
-        <Dialog.Overlay className="bg-black opacity-40 fixed bg-cover inset-0 z-50" />
+        <Dialog.Overlay className="bg-black opacity-40 fixed bg-cover inset-0 z-101" />
         <Dialog.Content
           onInteractOutside={(e) => setOpenModal(false)}
-          className=" h-auto w-4/5 md:w-auto bg-white  fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex  items-center border  z-50"
+          className=" h-auto w-4/5 md:w-auto bg-white  fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex  items-center border  z-101"
         >
           <Dialog.Close className="bg-Purple text-white absolute top-4 right-4 rounded-full flex justify-center items-center"></Dialog.Close>
           <div className="h-auto  w-full flex flex-col justify-center my-10">

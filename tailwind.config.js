@@ -19,6 +19,8 @@ module.exports = {
       zIndex: {
         60: "60",
         100: "100",
+        101: "101",
+        102: "102",
       },
       colors: {
         primary: "#2c7dce",
