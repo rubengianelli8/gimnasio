@@ -3,15 +3,16 @@ import Footer from "@/components/footer";
 
 const items = [
   { label: "Inicio", link: "/" },
-  { label: "Nosotros", link: "/#nosotros" },
   { label: "Actividades", link: "/#actividades" },
-  { label: "Instalaciones", link: "/#instalaciones" },
+  { label: "Nosotros", link: "/#nosotros" },
   { label: "Horarios", link: "/#horarios" },
+  { label: "Contacto", link: "/#contacto" },
 ];
 const Layout = ({ children }) => {
   return (
     <section className="min-h-screen flex flex-col max-w-screen">
       <Navbar items={items} />
+      <div className="h-[80px]"></div>
       {children}
       <Footer />
     </section>

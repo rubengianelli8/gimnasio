@@ -5,11 +5,11 @@ import { IoIosCloseCircle } from "react-icons/io";
 const Navbar = ({ items = [{ label: "Inicio", link: "/" }] }) => {
   const [showNavbar, setShowNavbar] = useState(false);
   return (
-    <nav className="h-[80px] max-w-screen px-[20px] bg-gray-900 shadow-lg text-white flex items-center fixed top-0 w-full z-100">
-      <ul className="hidden md:flex h-full gap-x-4 items-center w-full justify-center text-[20px] font-medium ">
+    <nav className="max-h-[80px] h-[80px] max-w-screen px-[20px] bg-[#4921b8] shadow-lg text-white flex items-center fixed top-0 w-full z-100">
+      <ul className="hidden md:flex h-full gap-x-6 items-center w-full justify-end text-[18px] font-medium ">
         {items.map((i) => (
           <li
-            className="hover:text-primary hover:underline cursor-pointer"
+            className="hover:bg-blackTransparent p-3 cursor-pointer"
             key={i.link}
           >
             <Link href={i.link}>

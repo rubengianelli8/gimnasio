@@ -13,6 +13,37 @@ export const User = {
       return error.getError(err);
     }
   },
+  async getUserList(_parent, { type, page, page_size }, _context) {
+    try {
+      let condition = {};
+      if (type === "client")
+        condition = {
+          client: {
+            some: {
+              id: { not: undefined },
+            },
+          },
+        };
+
+      const users = await prisma.user.findMany({
+        where: { ...condition },
+        take: page_size,
+        skip: (page - 1) * page_size,
+      });
+      const totalUsers = await prisma.user.count({
+        where: { ...condition },
+      });
+
+      return {
+        results: users,
+        current: page,
+        pages: Math.ceil(totalUsers / page_size),
+        total: totalUsers,
+      };
+    } catch (err) {
+      return error.getError(err);
+    }
+  },
   async addUser(_parent, data, _context) {
     try {
       const {

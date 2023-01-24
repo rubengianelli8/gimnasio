@@ -5,6 +5,9 @@ export const resolvers = {
     getUser: async (_parent, _args, _context) => {
       return await User.getUser(_parent, _args, _context);
     },
+    getUserList: async (_parent, _args, _context) => {
+      return await User.getUserList(_parent, _args, _context);
+    },
   },
   Mutation: {
     addUser: async (_parent, _args, _context) => {

@@ -9,8 +9,17 @@ export const schema = gql`
     password: String
     phone_number: String
   }
+
+  type ListUser {
+    results: [User]
+    pages: Int
+    current: Int
+    total: Int
+  }
+
   type Query {
     getUser(id: Int): User
+    getUserList(type: String, page: Int, page_size: Int): ListUser
   }
   type Mutation {
     addUser(

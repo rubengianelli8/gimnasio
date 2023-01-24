@@ -23,9 +23,11 @@ module.exports = {
         102: "102",
       },
       colors: {
-        primary: "#2c7dce",
+        colorbase: "#201575",
+        primary: "#612DF0",
         grayCustom: "#b4b4b4",
         error: "#a22718",
+        blackTransparent: "rgba(0,0,0,.3)",
       },
       height: {
         newScreen: "calc(100vh - 80px)",

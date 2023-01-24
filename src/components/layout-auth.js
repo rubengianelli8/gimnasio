@@ -12,20 +12,20 @@ const items = [
   { label: "Estadisticas", link: "/dashboard/statistics" },
 ];
 
-const navigationClient = [
+/* const navigationClient = [
   {
     label: "Agregar cliente",
     link: "/dashboard/clients/add",
     icon: <AiOutlineUserAdd />,
   },
-];
+]; */
 const Layout = ({ children }) => {
   return (
     <section className="min-h-screen flex flex-col max-w-screen relative">
       <Navbar items={items} />
-      <Navigation items={navigationClient} />
+      {/*<Navigation items={navigationClient} />*/}
       <div className="h-[80px]"></div>
-      <div className="ml-[90px] mt-[20px]">{children}</div>
+      <div className="mt-[20px]">{children}</div>
     </section>
   );
 };
