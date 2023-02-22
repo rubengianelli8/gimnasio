@@ -30,7 +30,9 @@ const Input = ({
             className="relative w-full focus:border-red-500 z-auto"
           >
             <span
-              className={`text-[14px] md:text-sm text-primary font-bold  mb-[18px]`}
+              className={`text-[14px] md:text-sm text-primary font-bold  mb-[18px] ${
+                disabled ? "opacity-50" : ""
+              }`}
             >
               {label}
             </span>
@@ -63,7 +65,8 @@ const Input = ({
             !error
               ? "border border-primary placeholder focus:border-2 focus:border-primary focus:outline-none"
               : "border border-error placeholder focus:border-2 focus:border-error focus:outline-none"
-          }`}
+          }
+          ${disabled ? "opacity-50" : ""}`}
           {...register(name)}
           {...rest}
         />

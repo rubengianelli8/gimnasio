@@ -21,3 +21,23 @@ export const ADD_USER = gql`
     }
   }
 `;
+
+export const UPDATE_USER = gql`
+  mutation UpdateUser(
+    $updateUserId: Int
+    $first_name: String
+    $last_name: String
+    $email: String
+    $phone_number: String
+  ) {
+    updateUser(
+      id: $updateUserId
+      first_name: $first_name
+      last_name: $last_name
+      email: $email
+      phone_number: $phone_number
+    ) {
+      id
+    }
+  }
+`;

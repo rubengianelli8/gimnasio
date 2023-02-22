@@ -7,10 +7,23 @@ export const GET_USER_LIST = gql`
       pages
       total
       results {
+        id
         email
         first_name
         last_name
       }
+    }
+  }
+`;
+
+export const GET_USER = gql`
+  query GetUser($userId: Int) {
+    getUser(id: $userId) {
+      email
+      first_name
+      last_name
+      password
+      phone_number
     }
   }
 `;

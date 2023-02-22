@@ -7,6 +7,14 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model gym {
+  id      Int      @id @default(autoincrement())
+  name    String
+  logo    String?
+  created DateTime @default(now())
+  user    user[]
+}
+
 model user {
   id           Int           @id @default(autoincrement())
   first_name   String
@@ -14,9 +22,11 @@ model user {
   email        String        @unique
   password     String
   phone_number String
+  gymId        Int
   role_x_user  role_x_user[]
   admin        admin[]
   client       client[]
+  gym          gym           @relation(fields: [gymId], references: [id])
 }
 
 model admin {

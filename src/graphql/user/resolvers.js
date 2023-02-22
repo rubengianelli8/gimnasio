@@ -13,5 +13,8 @@ export const resolvers = {
     addUser: async (_parent, _args, _context) => {
       return await User.addUser(_parent, _args, _context);
     },
+    updateUser: async (_parent, _args, _context) => {
+      return await User.updateUser(_parent, _args, _context);
+    },
   },
 };

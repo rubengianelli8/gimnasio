@@ -86,6 +86,33 @@ export const User = {
       return error.getError(err);
     }
   },
+  async updateUser(_parent, data, _context) {
+    try {
+      if (!isAdmin(_context.user)) throw { code: 401, message: "Unauthorized" };
+
+      const user_exist = await prisma.user.findUnique({
+        where: { id: data.id },
+        select: { email: true },
+      });
+      if (!user_exist) throw { code: 400, message: "Bad request" };
+
+      const existUserEmail = await this.userExist(email);
+      if (existUserEmail && email !== user_exist.email)
+        throw { code: 400, message: "userExist" };
+
+      return await prisma.user.update({
+        where: { id: data.id },
+        data: {
+          email: data.email,
+          first_name: data.first_name,
+          last_name: data.last_name,
+          phone_number: data.phone_number,
+        },
+      });
+    } catch (err) {
+      return error.getError(err);
+    }
+  },
   async userExist(email) {
     return await prisma.user.findUnique({
       where: { email },
