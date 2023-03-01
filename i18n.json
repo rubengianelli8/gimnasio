@@ -1,0 +1,9 @@
+{
+  "locales": ["es", "en"],
+  "defaultLocale": "es",
+  "localeDetection": true,
+  "pages": {
+    "*": ["common"],
+    "/dashboard/gyms": ["prueba"]
+  }
+}

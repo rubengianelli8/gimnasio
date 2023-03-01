@@ -2,11 +2,18 @@ import Link from "next/link";
 import { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoIosCloseCircle } from "react-icons/io";
-const Navbar = ({ items = [{ label: "Inicio", link: "/" }] }) => {
+const Navbar = ({ items = [{ label: "Inicio", link: "/" }], session }) => {
   const [showNavbar, setShowNavbar] = useState(false);
   return (
-    <nav className="max-h-[80px] h-[80px] max-w-screen px-[20px] bg-[#4921b8] shadow-lg text-white flex items-center fixed top-0 w-full z-100">
-      <ul className="hidden md:flex h-full gap-x-6 items-center w-full justify-end text-[18px] font-medium ">
+    <nav className="max-h-[80px] h-[80px] max-w-screen px-[20px] bg-[rgb(73,33,184)] shadow-lg text-white flex items-center fixed top-0 w-full z-100">
+      {!session && (
+        <Link href={"/auth/signin"}>
+          <a className="bg-white text-black p-2 font-semibold rounded-md">
+            Iniciar sesión
+          </a>
+        </Link>
+      )}
+      <ul className="hidden md:flex h-full gap-x-6 items-center ml-auto justify-end text-[18px] font-medium">
         {items.map((i) => (
           <li
             className="hover:bg-blackTransparent p-3 cursor-pointer"

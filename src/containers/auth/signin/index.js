@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Router from "next/router";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -16,6 +16,9 @@ const Signin = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState({ ok: true, message: "" });
+  const { data: session } = useSession();
+
+  useEffect(() => {}, [session]);
 
   const {
     handleSubmit,
@@ -42,6 +45,7 @@ const Signin = () => {
       } else Router.push(res.url);
     });
   };
+
   return (
     <>
       {loading && <Loader />}
