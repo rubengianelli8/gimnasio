@@ -8,15 +8,17 @@ datasource db {
 }
 
 model gym {
-  id      Int      @id @default(autoincrement())
-  name    String
-  logo    String?
-  created DateTime @default(now())
-  address String?
-  cityId  Int
-  city    city     @relation(fields: [cityId], references: [id])
-  admin   user     @relation(fields: [userId], references: [id])
-  userId  Int
+  id       Int      @id @default(autoincrement())
+  name     String
+  logo     String?
+  created  DateTime @default(now())
+  address  String?
+  cityId   Int
+  city     city     @relation(fields: [cityId], references: [id])
+  admin    user     @relation(fields: [userId], references: [id])
+  userId   Int
+  isClient Boolean  @default(false)
+  price    Int      @default(0)
 }
 
 model user {

@@ -13,6 +13,8 @@ export const Gym = {
           name: data.name,
           cityId: data.cityId,
           address: data.address,
+          price: data.price,
+          isClient: data.isClient,
           userId: user.id,
         },
       });

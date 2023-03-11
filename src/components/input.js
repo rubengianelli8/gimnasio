@@ -30,7 +30,7 @@ const Input = ({
             className="relative w-full focus:border-red-500 z-auto"
           >
             <span
-              className={`text-[14px] md:text-sm text-primary font-bold  mb-[18px] ${
+              className={`text-[10px] md:text-sm 2xl:text-md text-primary font-bold  mb-[18px] ${
                 disabled ? "opacity-50" : ""
               }`}
             >
@@ -61,7 +61,7 @@ const Input = ({
           disabled={disabled}
           autoComplete="off"
           step="any"
-          className={`bg-[#f5f5f5] mt-[11px] py-[13px] px-[21px] text-[14px] rounded-[10px] text-primary md:text-sm md:font-regular md:py-[19px] md:pl-[26px] md:pr-[21px] w-full ${
+          className={`bg-[#f5f5f5] mt-[11px] py-[9px] px-[21px] text-[9px] rounded-[8px] lg:rounded-[12px] text-primary md:text-sm 2xl:text-md md:font-regular md:py-[10px] lg:py-[12px] md:pl-[20px] md:pr-[21px] 2xl:py-[15px] w-full ${
             !error
               ? "border border-primary placeholder focus:border-2 focus:border-primary focus:outline-none"
               : "border border-error placeholder focus:border-2 focus:border-error focus:outline-none"
@@ -71,13 +71,11 @@ const Input = ({
           {...rest}
         />
 
-        <div className="h-[30px]">
-          {error && (
-            <p className=" text-error text-[14px] md:text-sm">
-              {error.message}
-            </p>
-          )}
-        </div>
+        {error && (
+          <p className=" text-error text-[9px] md:text-xsm 2xl:text-sm">
+            {error.message}
+          </p>
+        )}
       </div>
     </>
   );

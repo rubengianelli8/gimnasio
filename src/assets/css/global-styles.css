@@ -1,3 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind variants;
+
+@layer components {
+  .stand-text {
+    @apply text-[9px] md:text-sm 2xl:text-md;
+  }
+  .title-text {
+    @apply text-[12px] md:text-md 2xl:text-lg font-medium;
+  }
+}
+
 body {
   font-family: "Work Sans", sans-serif;
 }

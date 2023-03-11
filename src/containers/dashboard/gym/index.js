@@ -26,7 +26,7 @@ const ListGyms = () => {
           <h2 className="text-[30px] text-primary">Gimnasio</h2>
 
           <div className="ml-4">
-            <Link href={"/dashboard/clients/add"}>
+            <Link href={"/dashboard/gyms/new"}>
               <a className="text-[35px] text-primary">
                 <AiFillPlusSquare />
               </a>

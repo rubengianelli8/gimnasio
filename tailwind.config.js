@@ -12,9 +12,10 @@ module.exports = {
         worksans: ["Work Sans", "sans-serif"],
       },
       fontSize: {
-        sm: "16px",
-        md: "25px",
-        lg: "30px",
+        xsm: "10px",
+        sm: "12px",
+        md: "16px",
+        lg: "24px",
       },
       zIndex: {
         60: "60",

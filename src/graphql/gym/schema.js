@@ -11,6 +11,8 @@ export const schema = gql`
     address: String
     admin: User
     city: City
+    price: Int
+    isClient: Boolean
   }
 
   type Mutation {
