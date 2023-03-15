@@ -3,6 +3,7 @@ import { getSession } from "next-auth/react";
 
 import { resolvers } from "@/graphql/resolvers";
 import { schemas } from "@/graphql/schemas";
+import { getToken } from "next-auth/jwt";
 
 const apolloServer = new ApolloServer({
   cors: { origin: "*", credentials: true },
@@ -10,7 +11,10 @@ const apolloServer = new ApolloServer({
   resolvers: resolvers,
 
   context: async ({ req, res }) => {
-    const session = await getSession({ req });
+    const session = await getToken({
+      req,
+      secret: process.env.NEXTAUTH_SECRET,
+    });
 
     const context = {
       req,
@@ -19,6 +23,7 @@ const apolloServer = new ApolloServer({
     };
 
     const user = session ? session : null;
+    console.log("user", user);
 
     if (!user?.error) {
       context.user = user;

@@ -1,22 +1,28 @@
-import { useMutation } from "@apollo/client";
+import { useEffect } from "react";
+import { useMutation, useLazyQuery } from "@apollo/client";
+
 import { ADD_GYM } from "src/data/mutations/gym";
+import { GET_CITIES } from "src/data/queries/location.gql";
 
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-
 import { validationSchema } from "./validation-schema";
+
 import Input from "@/components/input";
 import SelectComponent from "@/components/select";
 import Checkbox from "@/components/checkbox";
 import Button from "@/components/button";
+import Router from "next/router";
 
-const NewGym = () => {
+const NewGym = ({ countries }) => {
   const [addGym] = useMutation(ADD_GYM);
-
+  const [getCities, { data }] = useLazyQuery(GET_CITIES);
   const {
     handleSubmit,
     register,
     setValue,
+    getValues,
+    watch,
     control,
     formState: { errors, isValid },
   } = useForm({
@@ -25,8 +31,40 @@ const NewGym = () => {
     resolver: yupResolver(validationSchema()),
   });
 
+  useEffect(() => {
+    const id_country = getValues("country");
+    if (id_country) {
+      getCities({
+        variables: {
+          idCountry: parseInt(id_country),
+        },
+      });
+    }
+  }, [watch("country")]);
+
   const onSubmit = (data) => {
-    console.log(data);
+    //addGym({ variables: {} });
+    const newData = {
+      name: data.name,
+      address: data.address,
+      country: parseInt(data.country),
+      cityId: parseInt(data.city),
+      isClient: data.isClient ? true : false,
+      price: parseInt(data.price),
+      user: {
+        first_name: data.first_name,
+        last_name: data.last_name,
+        email: data.email,
+        password: data.password,
+        phone_number: data.phone_number,
+      },
+    };
+
+    addGym({
+      variables: newData,
+    })
+      .then((res) => Router.push("/dashboard/gyms"))
+      .catch((err) => console.log(err));
   };
   return (
     <section>
@@ -42,20 +80,20 @@ const NewGym = () => {
                 type="text"
                 label="Nombre(*)"
                 placeholder="Nombre*"
-                name="first_name"
+                name="name"
                 register={register}
-                error={errors.first_name}
+                error={errors.name}
               />
               <Input
                 type="text"
-                label="Dirección(*)"
-                placeholder="Dirección*"
+                label="Dirección"
+                placeholder="Dirección"
                 name="address"
                 register={register}
                 error={errors.address}
               />
               <SelectComponent
-                data={[{ id: 1, name: "prueba" }]}
+                data={countries}
                 register={register}
                 name="country"
                 Controller={Controller}
@@ -63,11 +101,12 @@ const NewGym = () => {
                 label={"País"}
                 select={"Seleccioná un país"}
                 setValue={setValue}
-                error={errors.city}
+                error={errors.country}
               />
               <SelectComponent
-                data={[{ id: 1, name: "prueba" }]}
+                data={data?.getCities}
                 register={register}
+                disabled={!watch("country", false)}
                 name="city"
                 Controller={Controller}
                 control={control}
@@ -75,6 +114,14 @@ const NewGym = () => {
                 select={"Seleccioná una ciudad"}
                 setValue={setValue}
                 error={errors.city}
+              />
+              <Input
+                type="number"
+                label="Precio"
+                placeholder="Precio"
+                name="price"
+                register={register}
+                error={errors.price}
               />
               <div className="md:mt-[50px]">
                 <Checkbox

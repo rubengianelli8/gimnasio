@@ -8,6 +8,7 @@ export const ADD_GYM = gql`
     $address: String
     $cityId: Int
     $user: Json
+    $price: Int
   ) {
     addGym(
       name: $name
@@ -16,6 +17,7 @@ export const ADD_GYM = gql`
       address: $address
       cityId: $cityId
       user: $user
+      price: $price
     ) {
       id
     }

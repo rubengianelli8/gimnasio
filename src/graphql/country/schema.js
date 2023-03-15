@@ -5,4 +5,8 @@ export const schema = gql`
     id: Int
     name: String
   }
+
+  type Query {
+    getCountries: [Country]
+  }
 `;

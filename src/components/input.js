@@ -36,16 +36,11 @@ const Input = ({
             >
               {label}
             </span>
-            {toolTipLabel ? (
-              <span className="absolute right-4 top-4 text-black z-50">
-                <TooltipComponent text={toolTipLabel} />
-              </span>
-            ) : null}
           </Label.Root>
         )}
         {icon && (
           <span
-            className="absolute right-4 top-[52px] md:top-16 text-primary cursor-pointer"
+            className="absolute right-4 top-[52px] md:top-12 text-primary cursor-pointer"
             onClick={clickableAction}
           >
             {type !== "password" && icon}

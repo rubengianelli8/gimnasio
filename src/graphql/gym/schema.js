@@ -22,6 +22,7 @@ export const schema = gql`
       created: DateTime
       address: String
       cityId: Int
+      price: Int
       user: Json
     ): Gym
   }

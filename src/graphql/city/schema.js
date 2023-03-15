@@ -7,4 +7,8 @@ export const schema = gql`
     countryId: Int
     country: Country
   }
+
+  type Query {
+    getCities(id_country: Int): [City]
+  }
 `;

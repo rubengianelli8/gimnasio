@@ -1,7 +1,7 @@
 import { prisma } from "@/prisma/client";
 import { error } from "./error";
 import { hashPassword } from "@/utils/functions";
-import { isAdmin } from "@/utils/helpers";
+import { isAdmin, isSuperAdmin } from "@/utils/helpers";
 
 export const User = {
   async getUser(_parent, { id }, _context) {
@@ -58,7 +58,8 @@ export const User = {
       const existUser = await this.userExist(email);
       if (existUser) throw { code: 400, message: "userExist" };
 
-      if (!isAdmin(_context.user)) throw { code: 401, message: "Unauthorized" };
+      if (!isAdmin(_context.user) && !isSuperAdmin(_context.user))
+        throw { code: 401, message: "Unauthorized" };
 
       let dataUser = {};
       if (user_type === "client")
