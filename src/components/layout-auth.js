@@ -1,5 +1,6 @@
 import Navbar from "@/components/navbar";
 import { useSession } from "next-auth/react";
+import Toast from "@/components/toast";
 
 const Layout = ({ children }) => {
   const { data: session } = useSession();
@@ -8,6 +9,7 @@ const Layout = ({ children }) => {
       <Navbar />
       <div className="h-[80px]"></div>
       <div className="mt-[20px]">{children}</div>
+      <Toast />
     </section>
   );
 };

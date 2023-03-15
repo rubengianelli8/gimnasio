@@ -1,12 +1,13 @@
 import { useEffect } from "react";
 import { useMutation, useLazyQuery } from "@apollo/client";
 
-import { ADD_GYM } from "src/data/mutations/gym";
-import { GET_CITIES } from "src/data/queries/location.gql";
-
+import toast from "react-hot-toast";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationSchema } from "./validation-schema";
+
+import { ADD_GYM } from "src/data/mutations/gym";
+import { GET_CITIES } from "src/data/queries/location.gql";
 
 import Input from "@/components/input";
 import SelectComponent from "@/components/select";
@@ -60,11 +61,20 @@ const NewGym = ({ countries }) => {
       },
     };
 
-    addGym({
-      variables: newData,
-    })
-      .then((res) => Router.push("/dashboard/gyms"))
-      .catch((err) => console.log(err));
+    toast.promise(
+      addGym({
+        variables: newData,
+      })
+        .then((res) => {
+          Router.push("/dashboard/gyms");
+        })
+        .catch((err) => console.log(err)),
+      {
+        loading: "Cargando gimnasio",
+        success: "Gimnasio cargado",
+        error: "El gimnasio no se pudo guardar",
+      }
+    );
   };
   return (
     <section>
