@@ -4,6 +4,6 @@
   "localeDetection": true,
   "pages": {
     "*": ["common"],
-    "/dashboard/gyms": ["prueba"]
+    "/dashboard/gyms": ["gym"]
   }
 }

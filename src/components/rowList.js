@@ -3,23 +3,23 @@ import { MdDelete } from "react-icons/md";
 import { AiFillEdit } from "react-icons/ai";
 import Router from "next/router";
 
-const RowList = ({ rows = ["first_name"], item }) => {
+const RowList = ({ rows = [{ key: "first_name" }], item, grid }) => {
   return (
-    <div
-      className={`flex justify-between py-3  text-[9px] md:text-[12px] lg:text-[16px] border-b border-gray-500`}
-    >
-      {rows.map((row, index) => (
-        <div className="flex w-full">{item[row]}</div>
+    <div className={`grid grid-cols-${4} py-3 border-b border-gray-400`}>
+      {rows.map((row) => (
+        <div className={`flex w-full `}>
+          <p>{row.format ? row.format(item[row.key]) : item[row.key]}</p>
+        </div>
       ))}
-      <div className="flex text-[12px] md:text-[16px] lg:text-[20px] text-primary gap-x-2 pr-4">
+      <div className="flex text-[12px] md:text-[16px] lg:text-[20px] text-primary gap-x-2  w-[30px] ml-auto mr-[50px]">
         <button
-          className="hover:text-colorbase"
+          className="hover:text-primary-hover"
           onClick={() => Router.push(`/dashboard/clients/edit/${item.id}`)}
         >
           <AiFillEdit />
         </button>
         <button>
-          <MdDelete className="hover:text-colorbase" />
+          <MdDelete className="hover:text-primary-hover" />
         </button>
       </div>
     </div>

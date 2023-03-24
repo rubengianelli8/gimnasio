@@ -2,7 +2,6 @@ import Head from "next/head";
 import { SessionProvider } from "next-auth/react";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import "tailwindcss/tailwind.css";
-import "react-toastify/dist/ReactToastify.css";
 import "src/assets/fonts/fonts.css";
 import "@/assets/css/global-styles.css";
 

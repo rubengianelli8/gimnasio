@@ -1,0 +1,8 @@
+{
+  "gym": "Gimnasios",
+  "table": {
+    "name": "Nombre",
+    "date": "Fecha",
+    "price": "Precio"
+  }
+}

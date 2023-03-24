@@ -1,47 +1,48 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useQuery } from "@apollo/client";
-
-import { GET_USER_LIST } from "src/data/queries/user.gql";
+import useTranslation from "next-translate/useTranslation";
+import { GET_GYM_LIST } from "src/data/queries/gym.gql";
 import { AiFillPlusSquare } from "react-icons/ai";
 
 import RowList from "@/components/rowList";
 import Loader from "@/components/loader";
 import Paginate from "@/components/paginate";
+import dayjs from "dayjs";
+import Table from "@/components/table";
 
 const ListGyms = () => {
-  const { data, loading, refetch } = useQuery(GET_USER_LIST, {
-    variables: { page: 1, pageSize: 2, type: "client" },
+  const { t } = useTranslation("gym");
+  const { data, loading, refetch } = useQuery(GET_GYM_LIST, {
+    variables: { page: 1, pageSize: 2 },
   });
 
   useEffect(() => {
-    refetch({ page: 1, pageSize: 10, type: "client" });
+    refetch({ page: 1, pageSize: 10 });
   }, []);
 
   return (
     <>
       {loading && <Loader />}
-      <div className="flex flex-col w-4/5 mx-auto">
-        <div className="flex w-full  border-b-2 border-primary mb-[25px] items-center">
-          <h2 className="text-[30px] text-primary">Gimnasio</h2>
-
-          <div className="ml-4">
-            <Link href={"/dashboard/gyms/new"}>
-              <a className="text-[35px] text-primary">
-                <AiFillPlusSquare />
-              </a>
-            </Link>
-          </div>
-        </div>
-
-        {data?.getUserList?.results?.map((item) => (
-          <RowList rows={["first_name", "last_name", "email"]} item={item} />
-        ))}
-      </div>
-      <Paginate
-        page={data?.getUserList?.current}
-        totalPages={data?.getUserList?.pages}
-        onChange={(page) => refetch({ page, pageSize: 10, type: "client" })}
+      <Table
+        route={"/dashboard/gyms"}
+        title={t("gym")}
+        data={data?.getGymList.results}
+        rows={[
+          { key: "name" },
+          {
+            key: "created",
+            format: (value) => dayjs(value).format("DD/MM/YYYY"),
+          },
+          {
+            key: "price",
+            format: (value) => (value > 0 ? `$${value}` : "-"),
+          },
+        ]}
+        headers={[t("table.name"), t("table.date"), t("table.price")]}
+        current={data?.getGymList.current}
+        totalPages={data?.getGymList.pages}
+        onSortedChange={refetch}
       />
     </>
   );

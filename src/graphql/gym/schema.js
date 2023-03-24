@@ -15,6 +15,17 @@ export const schema = gql`
     isClient: Boolean
   }
 
+  type ListGym {
+    results: [Gym]
+    pages: Int
+    current: Int
+    total: Int
+  }
+
+  type Query {
+    getGymList(page: Int, page_size: Int): ListGym
+  }
+
   type Mutation {
     addGym(
       name: String
