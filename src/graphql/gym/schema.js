@@ -23,7 +23,7 @@ export const schema = gql`
   }
 
   type Query {
-    getGymList(page: Int, page_size: Int): ListGym
+    getGymList(page: Int, page_size: Int, search: String): ListGym
     getGym(id: Int): Gym
   }
 

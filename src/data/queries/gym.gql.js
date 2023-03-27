@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const GET_GYM_LIST = gql`
-  query GetGymList($page: Int, $pageSize: Int) {
-    getGymList(page: $page, page_size: $pageSize) {
+  query GetGymList($page: Int, $pageSize: Int, $search: String) {
+    getGymList(page: $page, page_size: $pageSize, search: $search) {
       current
       pages
       total

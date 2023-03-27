@@ -18,7 +18,7 @@ const ListGyms = () => {
   const [idGym, setIdGym] = useState(false);
 
   const { data, loading, refetch } = useQuery(GET_GYM_LIST, {
-    variables: { page: 1, pageSize: 10 },
+    variables: { page: 1, pageSize: 10, search: "" },
   });
 
   const [deleteGym] = useMutation(DELETE_GYM);

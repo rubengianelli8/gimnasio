@@ -1,4 +1,3 @@
-import React from "react";
 import Paginate from "@/components/paginate";
 import Link from "next/link";
 import { AiFillEdit, AiFillPlusSquare } from "react-icons/ai";
@@ -19,7 +18,7 @@ const Table = ({
   return (
     <>
       <div className="flex flex-col w-4/5 mx-auto">
-        <div className="flex w-full  border-b-2 border-primary mb-[25px] items-center">
+        <div className="flex w-full  border-b-2 border-primary mb-[25px] items-center pb-1">
           <h2 className="text-[30px] text-primary">{title}</h2>
 
           <div className="ml-4">
@@ -28,6 +27,19 @@ const Table = ({
                 <AiFillPlusSquare />
               </a>
             </Link>
+          </div>
+          <div className="ml-auto">
+            <input
+              placeholder="Buscar"
+              onChange={(e) =>
+                onSortedChange({
+                  page: 1,
+                  pageSize: 10,
+                  search: e.target.value,
+                })
+              }
+              className="border border-gray-400 rounded-[8px] p-2"
+            />
           </div>
         </div>
         <div className="w-full overflow-x-auto">

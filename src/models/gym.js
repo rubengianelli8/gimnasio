@@ -73,6 +73,11 @@ export const Gym = {
         throw { code: 401, message: "Unauthorized" };
 
       let { page, page_size } = data;
+      let search = {};
+      if (data.search?.length)
+        search = {
+          name: { contains: data.search },
+        };
       if (page > 0) page -= 1;
       const gyms = await prisma.gym.findMany({
         take: page_size,
@@ -80,7 +85,7 @@ export const Gym = {
         orderBy: {
           created: "desc",
         },
-        where: { deleted: false },
+        where: { deleted: false, ...search },
         include: {
           city: {
             select: { name: true },
