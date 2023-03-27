@@ -15,7 +15,12 @@ import Checkbox from "@/components/checkbox";
 import Button from "@/components/button";
 import Router from "next/router";
 
-const NewGym = ({ countries, gym }) => {
+const NewGym = ({ countries, gym, edit = false }) => {
+  useEffect(() => {
+    if (edit && !gym) {
+      Router.push("/404");
+    }
+  }, [edit]);
   const [addGym] = useMutation(ADD_GYM);
   const [updateGym, { error }] = useMutation(UPDATE_GYM);
 
@@ -34,16 +39,16 @@ const NewGym = ({ countries, gym }) => {
     reValidateMode: "onBlur",
     resolver: yupResolver(validationSchema(gym ? true : false)),
     defaultValues: {
-      name: gym.name,
-      address: gym.address,
-      country: gym.city.countryId,
-      city: gym.city.id,
-      price: gym.price,
-      isClient: gym.isClient,
-      first_name: gym.admin.first_name,
-      last_name: gym.admin.last_name,
-      email: gym.admin.email,
-      phone_number: gym.admin.phone_number,
+      name: gym?.name,
+      address: gym?.address,
+      country: gym?.city.countryId,
+      city: gym?.city.id,
+      price: gym?.price,
+      isClient: gym?.isClient,
+      first_name: gym?.admin.first_name,
+      last_name: gym?.admin.last_name,
+      email: gym?.admin.email,
+      phone_number: gym?.admin.phone_number,
     },
   });
 

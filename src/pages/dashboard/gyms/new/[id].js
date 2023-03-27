@@ -7,7 +7,7 @@ import { getSession } from "next-auth/react";
 const index = ({ countries, gym }) => {
   return (
     <Layout>
-      <NewGym countries={countries} gym={gym} />
+      <NewGym countries={countries} gym={gym} edit={true} />
     </Layout>
   );
 };
