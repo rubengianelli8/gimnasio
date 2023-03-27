@@ -9,6 +9,7 @@ export const ADD_GYM = gql`
     $cityId: Int
     $user: Json
     $price: Int
+    $isClient: Boolean
   ) {
     addGym(
       name: $name
@@ -18,6 +19,7 @@ export const ADD_GYM = gql`
       cityId: $cityId
       user: $user
       price: $price
+      isClient: $isClient
     ) {
       id
     }
@@ -34,6 +36,7 @@ export const UPDATE_GYM = gql`
     $cityId: Int
     $user: Json
     $price: Int
+    $isClient: Boolean
   ) {
     updateGym(
       id: $id
@@ -44,6 +47,7 @@ export const UPDATE_GYM = gql`
       cityId: $cityId
       user: $user
       price: $price
+      isClient: $isClient
     ) {
       id
     }

@@ -36,6 +36,7 @@ export const schema = gql`
       cityId: Int
       price: Int
       user: Json
+      isClient: Boolean
     ): Gym
     updateGym(
       id: Int
@@ -46,6 +47,7 @@ export const schema = gql`
       cityId: Int
       price: Int
       user: Json
+      isClient: Boolean
     ): Gym
     deleteGym(id: Int): Gym
   }
