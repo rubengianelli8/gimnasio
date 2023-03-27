@@ -77,6 +77,9 @@ export const Gym = {
       const gyms = await prisma.gym.findMany({
         take: page_size,
         skip: page_size * page,
+        orderBy: {
+          created: "desc",
+        },
         where: { deleted: false },
         include: {
           city: {
