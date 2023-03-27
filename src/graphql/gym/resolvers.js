@@ -33,5 +33,12 @@ export const resolvers = {
         return error.getError(e, false);
       }
     },
+    deleteGym: async (_parent, _args, _context) => {
+      try {
+        return await Gym.deleteGym(_parent, _args, _context);
+      } catch (e) {
+        return error.getError(e, false);
+      }
+    },
   },
 };

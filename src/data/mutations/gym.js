@@ -49,3 +49,11 @@ export const UPDATE_GYM = gql`
     }
   }
 `;
+
+export const DELETE_GYM = gql`
+  mutation DeleteGym($id: Int) {
+    deleteGym(id: $id) {
+      id
+    }
+  }
+`;

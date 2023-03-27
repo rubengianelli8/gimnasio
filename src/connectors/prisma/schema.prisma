@@ -19,6 +19,7 @@ model gym {
   userId   Int
   isClient Boolean  @default(false)
   price    Int      @default(0)
+  deleted  Boolean  @default(false)
 }
 
 model user {

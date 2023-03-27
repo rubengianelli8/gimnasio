@@ -14,6 +14,7 @@ const Table = ({
   onSortedChange,
   current,
   totalPages,
+  deleteAction,
 }) => {
   return (
     <>
@@ -65,7 +66,9 @@ const Table = ({
                           <AiFillEdit className="hover:text-primary-hover" />
                         </a>
                       </Link>
-                      <button>
+                      <button
+                        onClick={() => deleteAction && deleteAction(item.id)}
+                      >
                         <MdDelete className="hover:text-primary-hover" />
                       </button>
                     </div>

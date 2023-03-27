@@ -1,21 +1,27 @@
 import { useState, useEffect } from "react";
-import Link from "next/link";
-import { useQuery } from "@apollo/client";
-import useTranslation from "next-translate/useTranslation";
-import { GET_GYM_LIST } from "src/data/queries/gym.gql";
-import { AiFillPlusSquare } from "react-icons/ai";
 
-import RowList from "@/components/rowList";
-import Loader from "@/components/loader";
-import Paginate from "@/components/paginate";
+import { useQuery, useMutation } from "@apollo/client";
+import useTranslation from "next-translate/useTranslation";
 import dayjs from "dayjs";
+
+import { GET_GYM_LIST } from "src/data/queries/gym.gql";
+import { DELETE_GYM } from "src/data/mutations/gym";
+
+import Loader from "@/components/loader";
 import Table from "@/components/table";
+import Modal from "@/components/modal";
+import { toast } from "react-hot-toast";
 
 const ListGyms = () => {
   const { t } = useTranslation("gym");
+  const [open, setOpen] = useState(false);
+  const [idGym, setIdGym] = useState(false);
+
   const { data, loading, refetch } = useQuery(GET_GYM_LIST, {
-    variables: { page: 1, pageSize: 2 },
+    variables: { page: 1, pageSize: 10 },
   });
+
+  const [deleteGym] = useMutation(DELETE_GYM);
 
   useEffect(() => {
     refetch({ page: 1, pageSize: 10 });
@@ -23,7 +29,24 @@ const ListGyms = () => {
 
   return (
     <>
+      <Modal
+        openModal={open}
+        setOpenModal={setOpen}
+        title="Eliminar gimnasio"
+        text={"¿Esta seguro que desea eliminar el gimnasio?"}
+        accept="Eliminar"
+        cancel={"Cancelar"}
+        action={() =>
+          deleteGym({ variables: { id: parseInt(idGym) } })
+            .then((res) => {
+              toast.success("¡Gimnasio eliminado!");
+              refetch({ page: 1, pageSize: 10 });
+            })
+            .catch((err) => toast.error("¡Ha ocurrido un error!"))
+        }
+      />
       {loading && <Loader />}
+
       <Table
         route={"/dashboard/gyms"}
         title={t("gym")}
@@ -49,6 +72,10 @@ const ListGyms = () => {
         current={data?.getGymList.current}
         totalPages={data?.getGymList.pages}
         onSortedChange={refetch}
+        deleteAction={(id) => {
+          setIdGym(id);
+          setOpen(true);
+        }}
       />
     </>
   );

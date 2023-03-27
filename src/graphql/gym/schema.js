@@ -47,5 +47,6 @@ export const schema = gql`
       price: Int
       user: Json
     ): Gym
+    deleteGym(id: Int): Gym
   }
 `;

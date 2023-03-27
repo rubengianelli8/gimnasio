@@ -8,7 +8,6 @@ export const Gym = {
     try {
       if (!isSuperAdmin(_context.user))
         throw { code: 401, message: "Unauthorized" };
-      // console.log("data", data);
 
       const user = await User.addUser(_parent, data.user, _context);
       const gym = await prisma.gym.create({
@@ -78,6 +77,7 @@ export const Gym = {
       const gyms = await prisma.gym.findMany({
         take: page_size,
         skip: page_size * page,
+        where: { deleted: false },
         include: {
           city: {
             select: { name: true },
@@ -87,7 +87,7 @@ export const Gym = {
           },
         },
       });
-      const totalGyms = await prisma.gym.count({});
+      const totalGyms = await prisma.gym.count({ where: { deleted: false } });
       return {
         results: gyms,
         current: page + 1,
@@ -124,6 +124,23 @@ export const Gym = {
       });
 
       return gym;
+    } catch (err) {
+      return error.getError(err);
+    }
+  },
+  async deleteGym(_parent, { id }, _context) {
+    try {
+      if (!isSuperAdmin(_context.user))
+        throw { code: 401, message: "Unauthorized" };
+
+      return await prisma.gym.update({
+        where: {
+          id,
+        },
+        data: {
+          deleted: true,
+        },
+      });
     } catch (err) {
       return error.getError(err);
     }
