@@ -23,7 +23,6 @@ const apolloServer = new ApolloServer({
     };
 
     const user = session ? session : null;
-    console.log("user", user);
 
     if (!user?.error) {
       context.user = user;

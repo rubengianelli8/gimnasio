@@ -30,6 +30,7 @@ const ListGyms = () => {
         data={data?.getGymList.results}
         rows={[
           { key: "name" },
+          { key: "admin", format: (value) => value.email },
           {
             key: "created",
             format: (value) => dayjs(value).format("DD/MM/YYYY"),
@@ -39,7 +40,12 @@ const ListGyms = () => {
             format: (value) => (value > 0 ? `$${value}` : "-"),
           },
         ]}
-        headers={[t("table.name"), t("table.date"), t("table.price")]}
+        headers={[
+          t("table.name"),
+          t("table.email"),
+          t("table.date"),
+          t("table.price"),
+        ]}
         current={data?.getGymList.current}
         totalPages={data?.getGymList.pages}
         onSortedChange={refetch}

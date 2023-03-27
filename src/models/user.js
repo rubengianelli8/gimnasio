@@ -89,7 +89,8 @@ export const User = {
   },
   async updateUser(_parent, data, _context) {
     try {
-      if (!isAdmin(_context.user)) throw { code: 401, message: "Unauthorized" };
+      if (!isAdmin(_context.user) && !isSuperAdmin(_context.user))
+        throw { code: 401, message: "Unauthorized" };
 
       const user_exist = await prisma.user.findUnique({
         where: { id: data.id },
@@ -97,8 +98,8 @@ export const User = {
       });
       if (!user_exist) throw { code: 400, message: "Bad request" };
 
-      const existUserEmail = await this.userExist(email);
-      if (existUserEmail && email !== user_exist.email)
+      const existUserEmail = await this.userExist(data.email);
+      if (existUserEmail && data.email !== user_exist.email)
         throw { code: 400, message: "userExist" };
 
       return await prisma.user.update({

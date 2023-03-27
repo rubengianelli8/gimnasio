@@ -50,20 +50,20 @@ export const Gym = {
           },
         },
       });
-      await prisma.user.update({
-        where: {
+      await User.updateUser(
+        null,
+        {
           id: gym.admin.id,
-        },
-        data: {
           first_name: data.user.first_name,
           last_name: data.user.last_name,
           email: data.user.email,
           phone_number: data.user.phone_number,
         },
-      });
+        _context
+      );
+
       return gym;
     } catch (err) {
-      console.log(err);
       return error.getError(err);
     }
   },
@@ -81,6 +81,9 @@ export const Gym = {
         include: {
           city: {
             select: { name: true },
+          },
+          admin: {
+            select: { email: true },
           },
         },
       });

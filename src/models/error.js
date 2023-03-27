@@ -45,7 +45,7 @@ export const error = {
     let newMessage = `${type}: ${code} - ${message}`;
     logger.error(newMessage);
   },
-  getError(error) {
+  getError(error, isCallFromModel = true) {
     const prismaError = this.prismaValidationError(error);
     if (prismaError) {
       const { message, type, code } = prismaError;
@@ -58,15 +58,16 @@ export const error = {
     }
 
     const { message, code, type } = error;
-    return this.handlerError(message, code, type, error);
+    return this.handlerError(message, code, type, error, isCallFromModel);
   },
-  handlerError(message, code, type, originalError) {
+  handlerError(message, code, type, originalError, isCallFromModel) {
     /*     process.env.NODE_ENV !== "test" &&
       this.logError(type, code, message, originalError.message); */
     //retorno de error que maneja el handler
     //throw { code, message };
     // Si se implementa graphql, vamos a retornar un error de apollo.
-    if (process.env.NODE_ENV === "test") throw { code, message };
+    if (process.env.NODE_ENV === "test" || isCallFromModel)
+      throw { code, message };
     return new ApolloError(message, code, { type });
   },
 };

@@ -3,6 +3,7 @@
   "table": {
     "name": "Nombre",
     "date": "Fecha",
+    "email": "email",
     "price": "Precio"
   }
 }

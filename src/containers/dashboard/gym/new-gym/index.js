@@ -17,7 +17,7 @@ import Router from "next/router";
 
 const NewGym = ({ countries, gym }) => {
   const [addGym] = useMutation(ADD_GYM);
-  const [updateGym] = useMutation(UPDATE_GYM);
+  const [updateGym, { error }] = useMutation(UPDATE_GYM);
 
   const [getCities, { data }] = useLazyQuery(GET_CITIES);
   const {
@@ -27,6 +27,7 @@ const NewGym = ({ countries, gym }) => {
     getValues,
     watch,
     control,
+    setError,
     formState: { errors, isValid },
   } = useForm({
     mode: "onBlur",
@@ -57,7 +58,14 @@ const NewGym = ({ countries, gym }) => {
     }
   }, [watch("country")]);
 
-  const onSubmit = (data) => {
+  useEffect(() => {
+    if (error?.message === "userExist")
+      setError("email", {
+        type: "string",
+        message: "El email ingresado ya existe",
+      });
+  }, [error]);
+  const onSubmit = async (data) => {
     //addGym({ variables: {} });
     const newData = {
       name: data.name,
@@ -74,36 +82,20 @@ const NewGym = ({ countries, gym }) => {
         phone_number: data.phone_number,
       },
     };
-    if (!gym)
-      toast.promise(
-        addGym({
+    try {
+      if (!gym)
+        await addGym({
           variables: newData,
-        })
-          .then((res) => {
-            Router.push("/dashboard/gyms");
-          })
-          .catch((err) => console.log(err)),
-        {
-          loading: "Cargando gimnasio",
-          success: "Gimnasio cargado",
-          error: "El gimnasio no se pudo guardar",
-        }
-      );
-    if (gym) {
-      toast.promise(
-        updateGym({
+        });
+      if (gym) {
+        await updateGym({
           variables: { id: gym.id, ...newData },
-        })
-          .then((res) => {
-            Router.push("/dashboard/gyms");
-          })
-          .catch((err) => console.log(err)),
-        {
-          loading: "Editando gimnasio",
-          success: "Gimnasio Editado",
-          error: "El gimnasio no se pudo editar",
-        }
-      );
+        });
+      }
+      toast.success("Gimnasio cargado");
+      Router.push("/dashboard/gyms");
+    } catch (e) {
+      toast.error("ha ocurrido un error");
     }
   };
   return (

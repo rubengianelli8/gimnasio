@@ -15,6 +15,9 @@ export const GET_GYM_LIST = gql`
         city {
           name
         }
+        admin {
+          email
+        }
       }
     }
   }
