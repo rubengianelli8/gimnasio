@@ -24,10 +24,21 @@ export const schema = gql`
 
   type Query {
     getGymList(page: Int, page_size: Int): ListGym
+    getGym(id: Int): Gym
   }
 
   type Mutation {
     addGym(
+      name: String
+      logo: String
+      created: DateTime
+      address: String
+      cityId: Int
+      price: Int
+      user: Json
+    ): Gym
+    updateGym(
+      id: Int
       name: String
       logo: String
       created: DateTime

@@ -47,21 +47,24 @@ const Table = ({
               {data?.map((item, i) => (
                 <tr
                   key={i}
-                  className="border-t border-primary rounded-[8px] hover:bg-grayCustom"
+                  className="border-t border-primary rounded-[8px] hover:bg-grayCustom cursor-pointer"
                 >
                   {rows.map((row, j) => (
-                    <td className="px-4 py-2 stand-text truncate " key={j}>
+                    <td
+                      className="px-4 py-2 stand-text truncate "
+                      key={j}
+                      onClick={() => Router.push(`${route}/new/${item.id}`)}
+                    >
                       {row.format ? row.format(item[row.key]) : item[row.key]}
                     </td>
                   ))}
                   <td className="px-4 py-2 stand-text">
                     <div className="flex text-[12px] md:text-[16px] lg:text-[20px] text-primary gap-x-2  w-[30px] ml-auto mr-[50px]">
-                      <button
-                        className="hover:text-primary-hover"
-                        onClick={() => Router.push(`${route}/new/${item.id}`)}
-                      >
-                        <AiFillEdit />
-                      </button>
+                      <Link href={`${route}/new/${item.id}`}>
+                        <a>
+                          <AiFillEdit className="hover:text-primary-hover" />
+                        </a>
+                      </Link>
                       <button>
                         <MdDelete className="hover:text-primary-hover" />
                       </button>

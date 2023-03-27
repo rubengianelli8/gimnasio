@@ -26,6 +26,47 @@ export const Gym = {
       return error.getError(err);
     }
   },
+  async updateGym(_parent, data, _context) {
+    try {
+      if (!isSuperAdmin(_context.user))
+        throw { code: 401, message: "Unauthorized" };
+      // console.log("data", data);
+
+      const gym = await prisma.gym.update({
+        where: {
+          id: data.id,
+        },
+        data: {
+          name: data.name,
+          cityId: data.cityId,
+          address: data.address,
+          price: data.price,
+        },
+        include: {
+          admin: {
+            select: {
+              id: true,
+            },
+          },
+        },
+      });
+      await prisma.user.update({
+        where: {
+          id: gym.admin.id,
+        },
+        data: {
+          first_name: data.user.first_name,
+          last_name: data.user.last_name,
+          email: data.user.email,
+          phone_number: data.user.phone_number,
+        },
+      });
+      return gym;
+    } catch (err) {
+      console.log(err);
+      return error.getError(err);
+    }
+  },
 
   async getGymList(_parent, data, _context) {
     try {
@@ -50,6 +91,38 @@ export const Gym = {
         pages: Math.ceil(totalGyms / page_size),
         total: totalGyms,
       };
-    } catch (err) {}
+    } catch (err) {
+      return error.getError(err);
+    }
+  },
+  async getGym(_parent, { id }, _context) {
+    try {
+      if (!isSuperAdmin(_context.user))
+        throw { code: 401, message: "Unauthorized" };
+
+      const gym = await prisma.gym.findUnique({
+        where: { id },
+        include: {
+          admin: {
+            select: {
+              email: true,
+              last_name: true,
+              first_name: true,
+              phone_number: true,
+            },
+          },
+          city: {
+            select: {
+              id: true,
+              countryId: true,
+            },
+          },
+        },
+      });
+
+      return gym;
+    } catch (err) {
+      return error.getError(err);
+    }
   },
 };

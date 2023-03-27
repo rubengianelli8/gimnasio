@@ -6,7 +6,7 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationSchema } from "./validation-schema";
 
-import { ADD_GYM } from "src/data/mutations/gym";
+import { ADD_GYM, UPDATE_GYM } from "src/data/mutations/gym";
 import { GET_CITIES } from "src/data/queries/location.gql";
 
 import Input from "@/components/input";
@@ -15,8 +15,10 @@ import Checkbox from "@/components/checkbox";
 import Button from "@/components/button";
 import Router from "next/router";
 
-const NewGym = ({ countries }) => {
+const NewGym = ({ countries, gym }) => {
   const [addGym] = useMutation(ADD_GYM);
+  const [updateGym] = useMutation(UPDATE_GYM);
+
   const [getCities, { data }] = useLazyQuery(GET_CITIES);
   const {
     handleSubmit,
@@ -29,7 +31,19 @@ const NewGym = ({ countries }) => {
   } = useForm({
     mode: "onBlur",
     reValidateMode: "onBlur",
-    resolver: yupResolver(validationSchema()),
+    resolver: yupResolver(validationSchema(gym ? true : false)),
+    defaultValues: {
+      name: gym.name,
+      address: gym.address,
+      country: gym.city.countryId,
+      city: gym.city.id,
+      price: gym.price,
+      isClient: gym.isClient,
+      first_name: gym.admin.first_name,
+      last_name: gym.admin.last_name,
+      email: gym.admin.email,
+      phone_number: gym.admin.phone_number,
+    },
   });
 
   useEffect(() => {
@@ -60,21 +74,37 @@ const NewGym = ({ countries }) => {
         phone_number: data.phone_number,
       },
     };
-
-    toast.promise(
-      addGym({
-        variables: newData,
-      })
-        .then((res) => {
-          Router.push("/dashboard/gyms");
+    if (!gym)
+      toast.promise(
+        addGym({
+          variables: newData,
         })
-        .catch((err) => console.log(err)),
-      {
-        loading: "Cargando gimnasio",
-        success: "Gimnasio cargado",
-        error: "El gimnasio no se pudo guardar",
-      }
-    );
+          .then((res) => {
+            Router.push("/dashboard/gyms");
+          })
+          .catch((err) => console.log(err)),
+        {
+          loading: "Cargando gimnasio",
+          success: "Gimnasio cargado",
+          error: "El gimnasio no se pudo guardar",
+        }
+      );
+    if (gym) {
+      toast.promise(
+        updateGym({
+          variables: { id: gym.id, ...newData },
+        })
+          .then((res) => {
+            Router.push("/dashboard/gyms");
+          })
+          .catch((err) => console.log(err)),
+        {
+          loading: "Editando gimnasio",
+          success: "Gimnasio Editado",
+          error: "El gimnasio no se pudo editar",
+        }
+      );
+    }
   };
   return (
     <section>
@@ -178,6 +208,7 @@ const NewGym = ({ countries }) => {
                 name="password"
                 register={register}
                 error={errors.password}
+                disabled={gym ? true : false}
               />
               <Input
                 type="number"

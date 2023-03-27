@@ -23,3 +23,29 @@ export const ADD_GYM = gql`
     }
   }
 `;
+
+export const UPDATE_GYM = gql`
+  mutation UpdateGym(
+    $id: Int
+    $name: String
+    $logo: String
+    $created: DateTime
+    $address: String
+    $cityId: Int
+    $user: Json
+    $price: Int
+  ) {
+    updateGym(
+      id: $id
+      name: $name
+      logo: $logo
+      created: $created
+      address: $address
+      cityId: $cityId
+      user: $user
+      price: $price
+    ) {
+      id
+    }
+  }
+`;
