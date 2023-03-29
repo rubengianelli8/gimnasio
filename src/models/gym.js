@@ -95,7 +95,9 @@ export const Gym = {
           },
         },
       });
-      const totalGyms = await prisma.gym.count({ where: { deleted: false } });
+      const totalGyms = await prisma.gym.count({
+        where: { deleted: false, ...search },
+      });
       return {
         results: gyms,
         current: page + 1,

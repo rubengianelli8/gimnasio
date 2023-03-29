@@ -4,10 +4,10 @@ const Paginate = ({ page, totalPages, onChange }) => {
   const changePage = (direction) => {
     let newPage = page;
     if (direction === "left") {
-      newPage = page === 1 ? totalPages : page - 1;
+      newPage = page === 1 && totalPages > 0 ? totalPages : page - 1;
     }
     if (direction === "right") {
-      newPage = page === totalPages ? 1 : page + 1;
+      newPage = page === totalPages && totalPages > 0 ? 1 : page + 1;
     }
     onChange(newPage);
   };
@@ -20,7 +20,7 @@ const Paginate = ({ page, totalPages, onChange }) => {
         <IoIosArrowBack />
       </span>
       <span className="font-semibold text-[9px] md:text-[12px] lg:text-[16px]">
-        {page} de {totalPages}
+        {totalPages === 0 ? 0 : page} de {totalPages}
       </span>
       <span
         className="cursor-pointer text-primary text-[12px] md:text-[16px] lg:text-[20px]"

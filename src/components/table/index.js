@@ -38,7 +38,7 @@ const Table = ({
                   search: e.target.value,
                 })
               }
-              className="border border-gray-400 rounded-[8px] p-2"
+              className="border border-gray-400 rounded-[8px] p-2 stand-text"
             />
           </div>
         </div>
