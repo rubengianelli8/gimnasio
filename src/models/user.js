@@ -15,23 +15,30 @@ export const User = {
   },
   async getUserList(_parent, { type, page, page_size }, _context) {
     try {
-      let condition = {};
-      if (type === "client")
-        condition = {
-          client: {
+      const userRoleIds = {
+        admin: 2,
+        teacher: 3,
+        client: 4,
+      };
+      const users = await prisma.user.findMany({
+        where: {
+          role_x_user: {
             some: {
-              id: { not: undefined },
+              roleId: userRoleIds[type],
             },
           },
-        };
-
-      const users = await prisma.user.findMany({
-        where: { ...condition },
+        },
         take: page_size,
         skip: (page - 1) * page_size,
       });
       const totalUsers = await prisma.user.count({
-        where: { ...condition },
+        where: {
+          role_x_user: {
+            some: {
+              roleId: userRoleIds[type],
+            },
+          },
+        },
       });
 
       return {
@@ -58,7 +65,9 @@ export const User = {
       const existUser = await this.userExist(email);
       if (existUser) throw { code: 400, message: "userExist" };
 
-      if (!isAdmin(_context.user) && !isSuperAdmin(_context.user))
+      if (user_type === "admin" && !isSuperAdmin(_context.user))
+        throw { code: 401, message: "Unauthorized" };
+      if (user_type === "teacher" && !isAdmin(_context.user))
         throw { code: 401, message: "Unauthorized" };
 
       const userTypes = {
