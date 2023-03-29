@@ -15,12 +15,7 @@ import Checkbox from "@/components/checkbox";
 import Button from "@/components/button";
 import Router from "next/router";
 
-const NewGym = ({ countries, gym, edit = false }) => {
-  useEffect(() => {
-    if (edit && !gym) {
-      Router.push("/404");
-    }
-  }, [edit]);
+const NewGym = ({ countries, gym }) => {
   const [addGym] = useMutation(ADD_GYM);
   const [updateGym, { error }] = useMutation(UPDATE_GYM);
 
