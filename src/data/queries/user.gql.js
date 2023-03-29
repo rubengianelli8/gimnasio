@@ -1,8 +1,18 @@
 import { gql } from "@apollo/client";
 
 export const GET_USER_LIST = gql`
-  query GetUserList($type: String, $page: Int, $pageSize: Int) {
-    getUserList(type: $type, page: $page, page_size: $pageSize) {
+  query GetUserList(
+    $type: String
+    $page: Int
+    $pageSize: Int
+    $search: String
+  ) {
+    getUserList(
+      type: $type
+      page: $page
+      page_size: $pageSize
+      search: $search
+    ) {
       current
       pages
       total

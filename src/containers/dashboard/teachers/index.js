@@ -16,7 +16,7 @@ const ListGyms = () => {
   const [idTeacher, setidTeacher] = useState(false);
 
   const { data, loading, refetch } = useQuery(GET_USER_LIST, {
-    variables: { page: 1, pageSize: 10, type: "teacher" },
+    variables: { page: 1, pageSize: 10, type: "teacher", search: "" },
   });
 
   const [deleteGym] = useMutation(DELETE_GYM);

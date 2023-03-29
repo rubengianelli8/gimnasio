@@ -19,7 +19,12 @@ export const schema = gql`
 
   type Query {
     getUser(id: Int): User
-    getUserList(type: String, page: Int, page_size: Int): ListUser
+    getUserList(
+      type: String
+      page: Int
+      page_size: Int
+      search: String
+    ): ListUser
   }
   type Mutation {
     addUser(

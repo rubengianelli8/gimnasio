@@ -13,13 +13,22 @@ export const User = {
       return error.getError(err);
     }
   },
-  async getUserList(_parent, { type, page, page_size }, _context) {
+  async getUserList(_parent, { type, page, page_size, search }, _context) {
     try {
       const userRoleIds = {
         admin: 2,
         teacher: 3,
         client: 4,
       };
+      let search_ = {};
+      if (search.length > 0) {
+        search_ = {
+          OR: [
+            { first_name: { contains: search } },
+            { last_name: { contains: search } },
+          ],
+        };
+      }
       const users = await prisma.user.findMany({
         where: {
           role_x_user: {
@@ -27,6 +36,7 @@ export const User = {
               roleId: userRoleIds[type],
             },
           },
+          ...search_,
         },
         take: page_size,
         skip: (page - 1) * page_size,
@@ -38,6 +48,7 @@ export const User = {
               roleId: userRoleIds[type],
             },
           },
+          ...search_,
         },
       });
 
