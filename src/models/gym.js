@@ -9,7 +9,11 @@ export const Gym = {
       if (!isSuperAdmin(_context.user))
         throw { code: 401, message: "Unauthorized" };
 
-      const user = await User.addUser(_parent, data.user, _context);
+      const user = await User.addUser(
+        _parent,
+        { ...data.user, user_type: "admin" },
+        _context
+      );
       const gym = await prisma.gym.create({
         data: {
           name: data.name,

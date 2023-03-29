@@ -1,7 +1,16 @@
-import Link from "next/link";
 import { useState } from "react";
+import Link from "next/link";
+import { signOut } from "next-auth/react";
+
+import * as Avat from "@radix-ui/react-avatar";
+
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoIosCloseCircle } from "react-icons/io";
+import { BiLogOut } from "react-icons/bi";
+
+import Popover from "@/components/popover";
+import Router from "next/router";
+
 const Navbar = ({ items = [{ label: "Inicio", link: "/" }], session }) => {
   const [showNavbar, setShowNavbar] = useState(false);
   return (
@@ -13,7 +22,7 @@ const Navbar = ({ items = [{ label: "Inicio", link: "/" }], session }) => {
           </a>
         </Link>
       )}
-      <ul className="hidden md:flex h-full gap-x-6 items-center ml-auto justify-end text-[18px] font-medium">
+      <ul className="hidden md:flex h-full gap-x-6 items-center mx-auto justify-center text-[18px] font-medium">
         {items.map((i) => (
           <li
             className="hover:bg-blackTransparent p-3 cursor-pointer"
@@ -51,7 +60,35 @@ const Navbar = ({ items = [{ label: "Inicio", link: "/" }], session }) => {
           </li>
         ))}
       </ul>
-
+      <Popover
+        content={
+          <div
+            onClick={() => {
+              signOut({ redirect: false }).then(() => Router.push("/"));
+            }}
+            className="flex flex-col justify-center z-10 h-full cursor-pointer relative rounded-xl ml-[18px]  shadow-button  z-5 bg-black text-white py-3 px-5"
+          >
+            <p className="py-1 border-b-2 font-medium">
+              {session?.first_name + " " + session?.last_name}
+            </p>
+            <div className="flex mt-[11px]">
+              <i className="text-lightBlue mr-2 ">
+                <BiLogOut size={20} />
+              </i>
+              <p className="text-16 font-roboto capitalize">Cerrar sesión</p>
+            </div>
+          </div>
+        }
+      >
+        <Avat.Root
+          className={`flex items-center justify-center overflow-hidden rounded-full bg-white w-10 h-10  `}
+        >
+          <p className="text-primary font-bold uppercase">
+            {session?.first_name?.split(" ")[0].charAt(0)}
+            {session?.last_name?.split(" ")[0].charAt(0)}
+          </p>
+        </Avat.Root>
+      </Popover>
       <span
         className="ml-auto text-[30px] hover:text-primary hover:underline cursor-pointer hover:text-[34px] md:hidden"
         onClick={() => setShowNavbar(true)}

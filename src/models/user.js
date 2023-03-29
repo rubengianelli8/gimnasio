@@ -61,16 +61,16 @@ export const User = {
       if (!isAdmin(_context.user) && !isSuperAdmin(_context.user))
         throw { code: 401, message: "Unauthorized" };
 
+      const userTypes = {
+        admin: 2,
+        teacher: 3,
+        client: 4,
+      };
       let dataUser = {};
       if (user_type === "client")
         dataUser = {
           client: {
             create: {},
-          },
-          role_x_user: {
-            create: {
-              roleId: 2,
-            },
           },
         };
       return await prisma.user.create({
@@ -81,6 +81,11 @@ export const User = {
           phone_number,
           password: hashPassword(password),
           ...dataUser,
+          role_x_user: {
+            create: {
+              roleId: userTypes[user_type],
+            },
+          },
         },
       });
     } catch (err) {
