@@ -30,23 +30,23 @@ const Modal = ({
             <Dialog.Description className="text-font-worksans mt-2  md:mx-12 text-black text-sm  flex flex-col justify-center items-center text-center ">
               <span className="w-4/5 md:w-3/5 text-center">{text}</span>
             </Dialog.Description>
-            <Dialog.Description className="mt-6 flex flex-col md:flex-row  justify-center md:justify-center  items-center">
-              <span
-                className="w-[150px] md:w-[200px] mb-4 md:mb-0 md:mr-4"
-                onClick={async () => {
+            <Dialog.Description className="mt-6 flex flex-col md:flex-row justify-end gap-3 items-center">
+              <Button
+                color={"white"}
+                label={accept}
+                type="button"
+                action={async () => {
                   if (action) await action();
                   setOpenModal(false);
                 }}
-              >
-                <Button color={"white"} label={accept} />
-              </span>
+              />
+
               {cancel && (
-                <span
-                  className="w-[150px] md:w-[200px]"
-                  onClick={() => setOpenModal(false)}
-                >
-                  <Button color={"error"} label={cancel} />
-                </span>
+                <Button
+                  color={"error"}
+                  label={cancel}
+                  action={() => setOpenModal(false)}
+                />
               )}
             </Dialog.Description>
           </div>

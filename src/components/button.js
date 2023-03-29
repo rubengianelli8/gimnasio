@@ -4,9 +4,9 @@ const Button = ({ action, label, disabled, type, color }) => {
       <button
         disabled={disabled}
         type={type}
-        className={`stand-text font-medium uppercase rounded-[10px] md:rounded-xl p-3  ${
+        className={`stand-text font-semibold uppercase rounded-[10px] md:rounded-xl p-2  ${
           color === "error"
-            ? "bg-error text-white"
+            ? "bg-error text-white border-solid border-2 border-error"
             : color === "white"
             ? "bg-white text-primary border-solid border-2 border-primary "
             : color === "primary"

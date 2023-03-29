@@ -34,7 +34,7 @@ const ListGyms = () => {
         setOpenModal={setOpen}
         title="Eliminar gimnasio"
         text={"¿Esta seguro que desea eliminar el gimnasio?"}
-        accept="Eliminar"
+        accept="Sí, Eliminar"
         cancel={"Cancelar"}
         action={() =>
           deleteGym({ variables: { id: parseInt(idGym) } })
