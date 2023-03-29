@@ -25,7 +25,7 @@ const Table = ({
             onClick={() => Router.back()}
             className="text-primary cursor-pointer mt-1 mr-2"
           />
-          <h2 className="text-[30px] text-primary">{title}</h2>
+          <h2 className="title-text text-primary">{title}</h2>
           <div className="ml-4">
             <Link href={route + "/new"}>
               <a className="text-[35px] text-primary">

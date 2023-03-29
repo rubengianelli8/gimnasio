@@ -14,6 +14,7 @@ import SelectComponent from "@/components/select";
 import Checkbox from "@/components/checkbox";
 import Button from "@/components/button";
 import Router from "next/router";
+import Title from "@/components/title";
 
 const NewGym = ({ countries, gym }) => {
   const [addGym] = useMutation(ADD_GYM);
@@ -99,10 +100,13 @@ const NewGym = ({ countries, gym }) => {
     }
   };
   return (
-    <section>
-      <h2 className="w-full text-center mb-4 title-text">
-        Agregar nuevo Gimnasio
-      </h2>
+    <section className="">
+      <div className="w-[90vw] flex mx-auto">
+        <Title
+          title={gym ? "Editar gimnasio " + gym.name : "Agregar nuevo Gimnasio"}
+        />
+      </div>
+
       <form onSubmit={handleSubmit(onSubmit)} className="w-[90vw] mx-auto ">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-y-[15px] md:gap-3">
           <div>
@@ -214,7 +218,11 @@ const NewGym = ({ countries, gym }) => {
           </div>
         </div>
         <div className="w-full flex justify-center mt-4">
-          <Button type="submit" label="Crear gimnasio" color="primary" />
+          <Button
+            type="submit"
+            label={gym ? "Actualizar gimnasio" : "Crear gimnasio"}
+            color="primary"
+          />
         </div>
       </form>
     </section>
