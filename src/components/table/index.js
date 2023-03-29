@@ -3,6 +3,7 @@ import Link from "next/link";
 import { AiFillEdit, AiFillPlusSquare } from "react-icons/ai";
 import Router from "next/router";
 import { MdDelete } from "react-icons/md";
+import { BiLeftArrowAlt } from "react-icons/bi";
 
 const Table = ({
   data,
@@ -19,8 +20,12 @@ const Table = ({
     <>
       <div className="flex flex-col w-4/5 mx-auto">
         <div className="flex w-full  border-b-2 border-primary mb-[25px] items-center pb-1">
+          <BiLeftArrowAlt
+            size={30}
+            onClick={() => Router.back()}
+            className="text-primary cursor-pointer mt-1 mr-2"
+          />
           <h2 className="text-[30px] text-primary">{title}</h2>
-
           <div className="ml-4">
             <Link href={route + "/new"}>
               <a className="text-[35px] text-primary">
