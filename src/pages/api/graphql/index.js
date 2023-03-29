@@ -1,17 +1,35 @@
 import { ApolloServer } from "apollo-server-micro";
+import { getSession } from "next-auth/react";
 
 import { resolvers } from "@/graphql/resolvers";
 import { schemas } from "@/graphql/schemas";
+import { getToken } from "next-auth/jwt";
 
 const apolloServer = new ApolloServer({
   cors: { origin: "*", credentials: true },
   typeDefs: schemas,
   resolvers: resolvers,
 
-  // context: async ({ req }) => {
-  //   if (req.headers.authorization !== process.env.SECRET_KEY)
-  //     throw new Error("Acceso no permitido.");
-  // },
+  context: async ({ req, res }) => {
+    const session = await getToken({
+      req,
+      secret: process.env.NEXTAUTH_SECRET,
+    });
+
+    const context = {
+      req,
+      res,
+      user: {},
+    };
+
+    const user = session ? session : null;
+
+    if (!user?.error) {
+      context.user = user;
+    }
+
+    return context;
+  },
 });
 
 const startServer = apolloServer.start();
