@@ -33,5 +33,13 @@ export const resolvers = {
         return error.getError(e, false);
       }
     },
+    deleteUser: async (_parent, _args, _context) => {
+      try {
+        return await User.deleteUser(_parent, _args, _context);
+      } catch (e) {
+        console.log(e);
+        return error.getError(e, false);
+      }
+    },
   },
 };

@@ -164,6 +164,23 @@ export const User = {
     }
   },
 
+  async deleteUser(_parent, { id }, _context) {
+    try {
+      const user_exist = await prisma.user.findUnique({
+        where: { id },
+        select: { id: true },
+      });
+      if (!user_exist) throw { code: 400, message: "User not found" };
+      console.log(id);
+      return await prisma.user.delete({
+        where: { id },
+        select: { id: true },
+      });
+    } catch (err) {
+      return error.getError(err);
+    }
+  },
+
   async userExist(email) {
     return await prisma.user.findUnique({
       where: { email },

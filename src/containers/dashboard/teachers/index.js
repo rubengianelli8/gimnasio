@@ -4,7 +4,7 @@ import { useQuery, useMutation } from "@apollo/client";
 import dayjs from "dayjs";
 
 import { GET_USER_LIST } from "src/data/queries/user.gql";
-import { DELETE_GYM } from "src/data/mutations/gym";
+import { DELETE_USER } from "src/data/mutations/user.gql";
 
 import Loader from "@/components/loader";
 import Table from "@/components/table";
@@ -19,7 +19,7 @@ const ListGyms = () => {
     variables: { page: 1, pageSize: 10, type: "teacher", search: "" },
   });
 
-  const [deleteGym] = useMutation(DELETE_GYM);
+  const [deleteUser] = useMutation(DELETE_USER);
 
   useEffect(() => {
     refetch({ page: 1, pageSize: 10 });
@@ -35,7 +35,7 @@ const ListGyms = () => {
         accept="Sí, Eliminar"
         cancel={"Cancelar"}
         action={() =>
-          deleteGym({ variables: { id: parseInt(idTeacher) } })
+          deleteUser({ variables: { id: parseInt(idTeacher) } })
             .then((res) => {
               toast.success("Profesor eliminado!");
               refetch({ page: 1, pageSize: 10 });

@@ -65,7 +65,6 @@ const NewTeacher = ({ user }) => {
       toast.success(`Profesor ${user ? "editado" : "cargado"}`);
       Router.push("/dashboard/teachers");
     } catch (e) {
-      console.log(e);
       toast.error("ha ocurrido un error");
     }
   };

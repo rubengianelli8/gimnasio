@@ -42,5 +42,6 @@ export const schema = gql`
       email: String
       phone_number: String
     ): User
+    deleteUser(id: Int): User
   }
 `;

@@ -38,19 +38,19 @@ model user {
 
 model admin {
   id     Int  @id @default(autoincrement())
-  user   user @relation(fields: [userId], references: [id])
+  user   user @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId Int
 }
 
 model teacher {
   id     Int  @id @default(autoincrement())
-  user   user @relation(fields: [userId], references: [id])
+  user   user @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId Int
 }
 
 model client {
   id     Int  @id @default(autoincrement())
-  user   user @relation(fields: [userId], references: [id])
+  user   user @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId Int
 }
 
@@ -65,7 +65,7 @@ model role_x_user {
   id     Int  @id @default(autoincrement())
   userId Int
   roleId Int
-  user   user @relation(fields: [userId], references: [id])
+  user   user @relation(fields: [userId], references: [id], onDelete: Cascade)
   role   role @relation(fields: [roleId], references: [id])
 
   @@unique([userId, roleId])
