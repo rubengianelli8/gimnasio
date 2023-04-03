@@ -17,7 +17,7 @@ import Router from "next/router";
 import Title from "@/components/title";
 
 const NewGym = ({ countries, gym }) => {
-  const [addGym] = useMutation(ADD_GYM);
+  const [addGym, { error: errorAdd }] = useMutation(ADD_GYM);
   const [updateGym, { error }] = useMutation(UPDATE_GYM);
 
   const [getCities, { data }] = useLazyQuery(GET_CITIES);
@@ -60,12 +60,12 @@ const NewGym = ({ countries, gym }) => {
   }, [watch("country")]);
 
   useEffect(() => {
-    if (error?.message === "userExist")
+    if ([error?.message, errorAdd?.message].includes("userExist"))
       setError("email", {
         type: "string",
         message: "El email ingresado ya existe",
       });
-  }, [error]);
+  }, [error, errorAdd]);
   const onSubmit = async (data) => {
     //addGym({ variables: {} });
     const newData = {

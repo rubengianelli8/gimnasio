@@ -16,7 +16,7 @@ import Router from "next/router";
 import Title from "@/components/title";
 
 const NewClient = ({ user }) => {
-  const [addUser] = useMutation(ADD_USER);
+  const [addUser, { error: errorAdd }] = useMutation(ADD_USER);
   const [updateUser, { error }] = useMutation(UPDATE_USER);
 
   const {
@@ -38,12 +38,12 @@ const NewClient = ({ user }) => {
   });
 
   useEffect(() => {
-    if (error?.message === "userExist")
+    if ([error?.message, errorAdd?.message].includes("userExist"))
       setError("email", {
         type: "string",
         message: "El email ingresado ya existe",
       });
-  }, [error]);
+  }, [error, errorAdd]);
   const onSubmit = async (data) => {
     const newData = {
       first_name: data.first_name,
