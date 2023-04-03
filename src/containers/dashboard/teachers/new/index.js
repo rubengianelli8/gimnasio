@@ -15,7 +15,7 @@ import Button from "@/components/button";
 import Router from "next/router";
 import Title from "@/components/title";
 
-const NewTeacher = ({ countries, user }) => {
+const NewTeacher = ({ user }) => {
   const [addUser] = useMutation(ADD_USER);
   const [updateUser, { error }] = useMutation(UPDATE_USER);
 
@@ -59,10 +59,10 @@ const NewTeacher = ({ countries, user }) => {
         });
       if (user) {
         await updateUser({
-          variables: { id: user.id, ...newData },
+          variables: { updateUserId: user.id, ...newData },
         });
       }
-      toast.success("Profesor cargado");
+      toast.success(`Profesor ${user ? "editado" : "cargado"}`);
       Router.push("/dashboard/teachers");
     } catch (e) {
       console.log(e);
