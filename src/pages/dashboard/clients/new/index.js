@@ -1,10 +1,10 @@
 import Layout from "@/components/layout-auth";
-import AddClient from "@/containers/dashboard/clients/addClient";
+import NewClient from "@/containers/dashboard/clients/new";
 
 const index = () => {
   return (
     <Layout>
-      <AddClient />
+      <NewClient />
     </Layout>
   );
 };

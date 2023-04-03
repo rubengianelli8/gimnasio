@@ -1,45 +1,68 @@
 import { useState, useEffect } from "react";
-import { useQuery } from "@apollo/client";
-import Link from "next/link";
-import { GET_USER_LIST } from "src/data/queries/user.gql";
-import { AiFillPlusSquare } from "react-icons/ai";
 
-import RowList from "@/components/rowList";
+import { useQuery, useMutation } from "@apollo/client";
+
+import { GET_USER_LIST } from "src/data/queries/user.gql";
+import { DELETE_USER } from "src/data/mutations/user.gql";
+
 import Loader from "@/components/loader";
-import Paginate from "@/components/paginate";
+import Table from "@/components/table";
+import Modal from "@/components/modal";
+import { toast } from "react-hot-toast";
 
 const ListClients = () => {
+  const [open, setOpen] = useState(false);
+  const [idClient, setidClient] = useState(false);
+
   const { data, loading, refetch } = useQuery(GET_USER_LIST, {
-    variables: { page: 1, pageSize: 2, type: "client" },
+    variables: { page: 1, pageSize: 10, type: "client", search: "" },
   });
 
+  const [deleteUser] = useMutation(DELETE_USER);
+
   useEffect(() => {
-    refetch({ page: 1, pageSize: 10, type: "client" });
+    refetch({ page: 1, pageSize: 10 });
   }, []);
 
   return (
     <>
+      <Modal
+        openModal={open}
+        setOpenModal={setOpen}
+        title="Eliminar Cliente"
+        text={"¿Esta seguro que desea eliminar el Cliente?"}
+        accept="Sí, Eliminar"
+        cancel={"Cancelar"}
+        action={() =>
+          deleteUser({ variables: { id: parseInt(idClient) } })
+            .then((res) => {
+              toast.success("Cliente eliminado!");
+              refetch({ page: 1, pageSize: 10 });
+            })
+            .catch((err) => toast.error("¡Ha ocurrido un error!"))
+        }
+      />
       {loading && <Loader />}
-      <div className="flex flex-col w-4/5 mx-auto">
-        <div className="flex w-full  border-b-2 border-primary mb-[25px] items-center">
-          <h2 className="text-[30px] text-primary">Clientes</h2>
 
-          <div className="ml-4">
-            <Link href={"/dashboard/clients/add"}>
-              <a className="text-[35px] text-primary">
-                <AiFillPlusSquare />
-              </a>
-            </Link>
-          </div>
-        </div>
-        {data?.getUserList?.results?.map((item) => (
-          <RowList rows={["first_name", "last_name", "email"]} item={item} />
-        ))}
-      </div>
-      <Paginate
-        page={data?.getUserList?.current}
-        totalPages={data?.getUserList?.pages}
-        onChange={(page) => refetch({ page, pageSize: 10, type: "client" })}
+      <Table
+        route={"/dashboard/clients"}
+        title={"Clientes"}
+        data={data?.getUserList.results}
+        rows={[
+          { key: "first_name" },
+          { key: "last_name" },
+          {
+            key: "email",
+          },
+        ]}
+        headers={["Nombre", "Apellido", "Email"]}
+        current={data?.getUserList.current}
+        totalPages={data?.getUserList.pages}
+        onSortedChange={refetch}
+        deleteAction={(id) => {
+          setidClient(id);
+          setOpen(true);
+        }}
       />
     </>
   );

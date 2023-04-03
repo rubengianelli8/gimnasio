@@ -11,7 +11,7 @@ import Table from "@/components/table";
 import Modal from "@/components/modal";
 import { toast } from "react-hot-toast";
 
-const ListGyms = () => {
+const ListTeachers = () => {
   const [open, setOpen] = useState(false);
   const [idTeacher, setidTeacher] = useState(false);
 
@@ -69,4 +69,4 @@ const ListGyms = () => {
   );
 };
 
-export default ListGyms;
+export default ListTeachers;
