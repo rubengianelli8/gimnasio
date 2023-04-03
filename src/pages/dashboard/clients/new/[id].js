@@ -15,10 +15,14 @@ const index = ({ user }) => {
 export async function getServerSideProps(ctx) {
   const { query } = ctx;
   const user = await getSession(ctx);
-  let client = await User.getUser(null, {
-    id: parseInt(query.id),
-    user_type: "client",
-  });
+  let client = await User.getUser(
+    null,
+    {
+      id: parseInt(query.id),
+      user_type: "client",
+    },
+    { user }
+  );
   if (!client)
     return {
       redirect: {

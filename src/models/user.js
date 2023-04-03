@@ -6,7 +6,7 @@ import { isAdmin, isSuperAdmin } from "@/utils/helpers";
 export const User = {
   async getUser(_parent, { id, user_type }, _context) {
     try {
-      return await prisma.user.findUnique({
+      const user = await prisma.user.findUnique({
         where: { id },
         select: {
           first_name: true,
@@ -17,6 +17,22 @@ export const User = {
           [user_type]: true,
         },
       });
+      if (user.admin?.length && !isSuperAdmin(_context.user))
+        throw {
+          code: 401,
+          message: "Unauthorized",
+        };
+
+      if (
+        user.teacher?.length &&
+        !isSuperAdmin(_context.user) &&
+        !isAdmin(_context.user)
+      )
+        throw {
+          code: 401,
+          message: "Unauthorized",
+        };
+      return user;
     } catch (err) {
       return error.getError(err);
     }

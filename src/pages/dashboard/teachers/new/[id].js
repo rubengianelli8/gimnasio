@@ -14,10 +14,14 @@ const index = ({ user }) => {
 export async function getServerSideProps(ctx) {
   const { query } = ctx;
   const user = await getSession(ctx);
-  let teacher = await User.getUser(null, {
-    id: parseInt(query.id),
-    user_type: "teacher",
-  });
+  let teacher = await User.getUser(
+    null,
+    {
+      id: parseInt(query.id),
+      user_type: "teacher",
+    },
+    { user }
+  );
   if (!teacher)
     return {
       redirect: {
